@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
 import ProgramCard from './ProgramCard';
 import ThemeToggle from './ThemeToggle';
 
-export default function CatalogoInteractivo({ categorias, programas }) {
+export default function CatalogoInteractivo({ categorias, programas, articulos = [] }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeSub, setActiveSub] = useState({});
@@ -224,24 +225,37 @@ export default function CatalogoInteractivo({ categorias, programas }) {
         );
       })}
 
-      <section className="blog">
-        <div className="cat-head">
-          <h2>Últimos análisis</h2>
-          <span className="mono">Desde el blog</span>
-        </div>
-        <div className="blog-grid">
-          {[1, 2, 3].map((i) => (
-            <a className="blog-card" href="#" key={i}>
-              <div className="thumb">IMAGEN DEL ARTÍCULO</div>
-              <div className="body">
-                <span className="cat-label">TRADING</span>
-                <h4>Título del análisis número {i}</h4>
-                <span className="date">Próximamente</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
+      {articulos.length > 0 && (
+        <section className="blog">
+          <div className="cat-head">
+            <h2>Últimos análisis</h2>
+            <Link href="/blog" className="mono" style={{ textDecoration: 'none' }}>
+              Ver todo el blog →
+            </Link>
+          </div>
+          <div className="blog-grid">
+            {articulos.map((a) => {
+              const cat = categorias.find((c) => c.id === a.categoria_id);
+              return (
+                <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
+                  <div className="thumb">{(cat?.nombre || 'ARTÍCULO').toUpperCase()}</div>
+                  <div className="body">
+                    <span className="cat-label">{(cat?.nombre || '').toUpperCase()}</span>
+                    <h4>{a.titulo}</h4>
+                    <span className="date">
+                      {new Date(a.fecha_publicacion).toLocaleDateString('es', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <div className="podcast">
         <div>
