@@ -25,7 +25,9 @@ export async function generateMetadata({ params }) {
 
   const title = `${resena.titulo} | Millonario Digital`;
   const description =
-    resena.programas?.descripcion_corta || `Reseña de ${resena.programas?.nombre || ''}`;
+    resena.meta_descripcion ||
+    resena.programas?.descripcion_corta ||
+    `Reseña de ${resena.programas?.nombre || ''}`;
 
   return {
     title,
@@ -51,6 +53,18 @@ export default async function ResenaPage({ params }) {
 
   const programa = resena.programas;
   const categoria = programa?.categorias;
+
+  let articuloRelacionado = null;
+  if (programa?.categoria_id) {
+    const { data } = await supabase
+      .from('articulos')
+      .select('titulo, slug')
+      .eq('categoria_id', programa.categoria_id)
+      .eq('publicado', true)
+      .limit(1)
+      .maybeSingle();
+    articuloRelacionado = data;
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -120,6 +134,15 @@ export default async function ResenaPage({ params }) {
               </Link>
             )}
           </div>
+        )}
+
+        {articuloRelacionado && (
+          <p style={{ marginTop: '18px', color: 'var(--text-dim)', fontSize: '0.9rem' }}>
+            Te puede interesar:{' '}
+            <Link href={`/blog/${articuloRelacionado.slug}`} style={{ color: 'var(--cyan)' }}>
+              {articuloRelacionado.titulo}
+            </Link>
+          </p>
         )}
       </article>
 

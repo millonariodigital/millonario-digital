@@ -54,6 +54,17 @@ export default async function ArticuloPage({ params }) {
     );
   }
 
+  let resenasRelacionadas = [];
+  if (articulo.categoria_id) {
+    const { data } = await supabase
+      .from('programas')
+      .select('nombre, slug')
+      .eq('categoria_id', articulo.categoria_id)
+      .eq('activo', true)
+      .limit(3);
+    resenasRelacionadas = data || [];
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -106,8 +117,25 @@ export default async function ArticuloPage({ params }) {
           dangerouslySetInnerHTML={{ __html: articulo.contenido }}
         />
 
+        {resenasRelacionadas.length > 0 && (
+          <div style={{ marginTop: '36px' }}>
+            <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+              RESEÑAS RELACIONADAS
+            </span>
+            <ul style={{ marginTop: '10px', paddingLeft: '20px', lineHeight: 1.9 }}>
+              {resenasRelacionadas.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/resenas/${p.slug}`} style={{ color: 'var(--cyan)' }}>
+                    Reseña de {p.nombre}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {articulo.categorias?.slug && (
-          <div style={{ marginTop: '40px', borderTop: '1px solid var(--line)', paddingTop: '24px' }}>
+          <div style={{ marginTop: '32px', borderTop: '1px solid var(--line)', paddingTop: '24px' }}>
             <Link href={`/categoria/${articulo.categorias.slug}`} className="btn btn-glow">
               Ver herramientas de {articulo.categorias.nombre} →
             </Link>
