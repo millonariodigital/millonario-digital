@@ -480,6 +480,19 @@
   .searchbar input::placeholder { color: var(--text-dim); }
   .no-results { margin: 8px 2px 0; color: var(--text-dim); font-size: 0.78rem; }
 
+  .content-panel {
+    background: rgba(8, 10, 20, 0.82);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 1;
+  }
+  :root[data-theme="light"] .content-panel,
+  .light .content-panel {
+    background: rgba(255, 255, 255, 0.88);
+  }
+
   .article-body h2 {
     font-size: 1.3rem; font-weight: 700; margin: 32px 0 12px; color: var(--text);
   }
