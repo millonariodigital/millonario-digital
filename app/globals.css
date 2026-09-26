@@ -460,3 +460,25 @@
   }
   .searchbar input::placeholder { color: var(--text-dim); }
   .no-results { margin: 8px 2px 0; color: var(--text-dim); font-size: 0.78rem; }
+
+  .article-body h2 {
+    font-size: 1.3rem; font-weight: 700; margin: 32px 0 12px; color: var(--text);
+  }
+  .article-body p { margin-bottom: 14px; color: var(--text-dim); }
+  .article-body ul { margin: 0 0 18px 20px; color: var(--text-dim); }
+  .article-body li { margin-bottom: 8px; line-height: 1.6; }
+  .article-body strong { color: var(--text); }
+  .article-body a { color: var(--cyan); }
+
+  .review-head {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .review-head img {
+    width: 56px; height: 56px; border-radius: 12px; object-fit: contain;
+    background: var(--card); border: 1px solid var(--card-border); padding: 8px;
+  }
+  .review-cta {
+    margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }

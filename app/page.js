@@ -17,5 +17,18 @@ export default async function Home() {
     .select('*')
     .eq('activo', true);
 
-  return <CatalogoInteractivo categorias={categorias || []} programas={programas || []} />;
+  const { data: articulos } = await supabase
+    .from('articulos')
+    .select('*')
+    .eq('publicado', true)
+    .order('fecha_publicacion', { ascending: false })
+    .limit(3);
+
+  return (
+    <CatalogoInteractivo
+      categorias={categorias || []}
+      programas={programas || []}
+      articulos={articulos || []}
+    />
+  );
 }
