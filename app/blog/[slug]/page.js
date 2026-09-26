@@ -94,7 +94,10 @@ export default async function ArticuloPage({ params }) {
         </nav>
       </header>
 
-      <article style={{ maxWidth: '760px', margin: '0 auto', padding: '4vh 6vw 8vh' }}>
+      <article
+        className="content-panel"
+        style={{ maxWidth: '760px', margin: '4vh auto 8vh', padding: '5vh 6vw' }}
+      >
         {articulo.categorias?.nombre && (
           <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
             {articulo.categorias.nombre.toUpperCase()}
@@ -152,3 +155,4 @@ export default async function ArticuloPage({ params }) {
     </>
   );
 }
+
