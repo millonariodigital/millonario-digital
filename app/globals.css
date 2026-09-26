@@ -410,7 +410,11 @@
     background: linear-gradient(90deg, #0891b2, #6d28d9);
   }
 
-  .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; display: block; }
+  .card img {
+    width: 52px; height: 52px; object-fit: contain; border-radius: 12px;
+    margin-bottom: 4px; display: block;
+    background: #ffffff; border: 1px solid var(--card-border); padding: 8px;
+  }
   .card-links { display: flex; align-items: center; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
   .affiliate-btn {
     padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
