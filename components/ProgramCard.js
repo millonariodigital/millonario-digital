@@ -2,11 +2,21 @@ export default function ProgramCard({ programa }) {
   return (
     <div className="card">
       {(programa.imagen_url || programa.logo_url) && (
-        <img
-          className="card-banner"
-          src={programa.imagen_url || programa.logo_url}
-          alt={programa.nombre}
-        />
+        <div className="card-banner-wrap">
+          <img
+            className="card-banner"
+            src={programa.imagen_url || programa.logo_url}
+            alt={programa.nombre}
+          />
+          {programa.imagen_url && programa.logo_url && (
+            <img
+              className="card-logo-badge"
+              src={programa.logo_url}
+              alt=""
+              aria-hidden="true"
+            />
+          )}
+        </div>
       )}
       <span className="tag">{(programa.tipo || '').toUpperCase()}</span>
       <h3>{programa.nombre}</h3>
