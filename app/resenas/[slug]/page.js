@@ -98,7 +98,10 @@ export default async function ResenaPage({ params }) {
         </nav>
       </header>
 
-      <article style={{ maxWidth: '760px', margin: '0 auto', padding: '4vh 6vw 8vh' }}>
+      <article
+        className="content-panel"
+        style={{ maxWidth: '760px', margin: '4vh auto 8vh', padding: '5vh 6vw' }}
+      >
         {categoria?.nombre && (
           <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
             {categoria.nombre.toUpperCase()} · RESEÑA
@@ -155,3 +158,4 @@ export default async function ResenaPage({ params }) {
     </>
   );
 }
+
