@@ -415,23 +415,20 @@
     margin-bottom: 4px; display: block;
     background: #ffffff; border: 1px solid var(--card-border); padding: 8px;
   }
-  .card-banner-wrap {
-    position: relative;
-    width: calc(100% + 40px);
-    margin: -20px -20px 4px -20px;
+  .card-banner {
+    width: calc(100% + 40px); height: 130px;
+    margin: -20px -20px 12px -20px; border-radius: 10px 10px 0 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 0 20px;
   }
-  .card img.card-banner {
-    width: 100%; height: 150px; object-fit: cover;
-    display: block; margin: 0; border-radius: 10px 10px 0 0;
-    background: none; border: none; padding: 0;
+  .card-banner-icon {
+    width: 40px; height: 40px; object-fit: contain; border-radius: 10px;
+    background: rgba(255,255,255,0.92); padding: 6px; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
-  .card-logo-badge {
-    position: absolute; top: 14px; left: 14px;
-    width: 44px; height: 44px; border-radius: 50%;
-    object-fit: contain; background: #ffffff;
-    border: 3px solid #ffffff;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-    margin: 0; padding: 3px;
+  .card-banner-name {
+    font-size: 1.25rem; font-weight: 700; line-height: 1.15;
+    max-width: 190px; word-break: break-word;
   }
   .card-links { display: flex; align-items: center; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
   .affiliate-btn {
