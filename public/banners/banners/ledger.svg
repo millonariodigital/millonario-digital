@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="400" fill="#8BD3E6"/>
+  <polygon points="480,0 800,0 800,400 340,400" fill="#0a0c18" opacity="0.82"/>
+  <rect width="800" height="400" fill="url(#grid)"/>
+  <g transform="translate(560,90) scale(2.15)">
+    <path d="M60 5 L110 25 V60 C110 90 88 108 60 118 C32 108 10 90 10 60 V25 Z" fill="none" stroke="#8BD3E6" stroke-width="8"/><path d="M40 60 L54 74 L82 44" stroke="#8BD3E6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <circle cx="66" cy="66" r="38" fill="#ffffff"/>
+  <circle cx="66" cy="66" r="38" fill="none" stroke="#8BD3E6" stroke-width="3"/>
+  <text x="46" y="330" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#ffffff">Ledger</text>
+  <rect x="46" y="345" width="60" height="4" rx="2" fill="#8BD3E6"/>
+</svg>
