@@ -422,9 +422,9 @@
     gap: 12px; padding: 0 20px;
   }
   .card-banner-icon {
-    width: 40px; height: 40px; object-fit: contain; border-radius: 10px;
-    background: rgba(255,255,255,0.92); padding: 6px; flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 44px; height: 44px; object-fit: cover; border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   }
   .card-banner-name {
     font-size: 1.25rem; font-weight: 700; line-height: 1.15;
