@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D6001C"/>
+      <stop offset="100%" stop-color="#59000b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+      <g transform="translate(430,40) scale(1.9)" opacity="0.16">
+        <path d="M0 130 L0 0" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M0 130 L150 130" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M15 100 L55 65 L85 85 L140 25" stroke="white" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="140" cy="25" r="8" fill="white"/>
+        <circle cx="85" cy="85" r="8" fill="white"/>
+        <circle cx="55" cy="65" r="8" fill="white"/>
+        <circle cx="15" cy="100" r="8" fill="white"/>
+      </g>
+  <circle cx="70" cy="70" r="46" fill="rgba(255,255,255,0.95)"/>
+  <text x="70" y="86" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#59000b" text-anchor="middle">IB</text>
+  <text x="46" y="330" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#ffffff">Interactive Brokers</text>
+</svg>

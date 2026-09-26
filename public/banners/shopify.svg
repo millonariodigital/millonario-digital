@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#95BF47"/>
+      <stop offset="100%" stop-color="#3f511c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+      <g transform="translate(450,45) scale(1.7)" opacity="0.16">
+        <path d="M0 0 H20 L38 90 H115 L130 30 H35" fill="none" stroke="white" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="50" cy="112" r="12" fill="white"/>
+        <circle cx="100" cy="112" r="12" fill="white"/>
+      </g>
+  <circle cx="70" cy="70" r="46" fill="rgba(255,255,255,0.95)"/>
+  <text x="70" y="86" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#3f511c" text-anchor="middle">SH</text>
+  <text x="46" y="330" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#ffffff">Shopify</text>
+</svg>
