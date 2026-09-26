@@ -507,8 +507,7 @@
     margin-bottom: 8px;
   }
   .review-head img {
-    width: 56px; height: 56px; border-radius: 12px; object-fit: contain;
-    background: var(--card); border: 1px solid var(--card-border); padding: 8px;
+    width: 56px; height: 56px; border-radius: 14px; object-fit: cover;
   }
   .review-cta {
     margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line);
