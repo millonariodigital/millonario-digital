@@ -3,9 +3,6 @@
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
     </pattern>
-    <clipPath id="circleClip">
-      <circle cx="66" cy="66" r="34"/>
-    </clipPath>
   </defs>
   <rect width="800" height="400" fill="#00E5FF"/>
   <polygon points="480,0 800,0 800,400 340,400" fill="#0a0c18" opacity="0.82"/>
@@ -15,7 +12,6 @@
   </g>
   <circle cx="66" cy="66" r="38" fill="#ffffff"/>
   <circle cx="66" cy="66" r="38" fill="none" stroke="#00E5FF" stroke-width="3"/>
-  <image href="https://icons.duckduckgo.com/ip3/klaviyo.com.ico" x="32" y="32" width="68" height="68" clip-path="url(#circleClip)" preserveAspectRatio="xMidYMid slice"/>
   <text x="46" y="330" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#ffffff">Klaviyo</text>
   <rect x="46" y="345" width="60" height="4" rx="2" fill="#00E5FF"/>
 </svg>
