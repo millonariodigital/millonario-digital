@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { supabase } from '../../../lib/supabaseClient';
+import { portadaUrl } from '../../../lib/portada';
 import ProgramCard from '../../../components/ProgramCard';
 import ThemeToggle from '../../../components/ThemeToggle';
 
@@ -57,7 +58,7 @@ export default async function CategoriaPage({ params, searchParams }) {
     .eq('categoria_id', categoria.id)
     .eq('activo', true);
 
-  const lista = programas || [];
+  const lista = (programas || []).map((p) => ({ ...p, portada: portadaUrl(p.slug) }));
   const tipos = [...new Set(lista.map((p) => p.tipo).filter(Boolean))];
   const tipoActivo = searchParams?.tipo || 'all';
   const visibles = lista.filter((p) => tipoActivo === 'all' || p.tipo === tipoActivo);
@@ -121,3 +122,4 @@ export default async function CategoriaPage({ params, searchParams }) {
     </>
   );
 }
+
