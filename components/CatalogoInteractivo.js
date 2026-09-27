@@ -6,10 +6,11 @@ import { supabase } from '../lib/supabaseClient';
 import ProgramCard from './ProgramCard';
 import ThemeToggle from './ThemeToggle';
 
-export default function CatalogoInteractivo({ categorias, programas, articulos = [] }) {
+export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeSub, setActiveSub] = useState({});
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const [email, setEmail] = useState('');
   const [subState, setSubState] = useState('idle'); // idle | sending | done | error
@@ -79,6 +80,8 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             </a>
           ))}
 
+          <Link href="/descubre-tu-camino">Descubre tu camino</Link>
+
           <ThemeToggle />
           <div className="search-wrap">
             <button
@@ -112,7 +115,67 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             )}
           </div>
         </nav>
+
+        <button
+          className="menu-btn"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Abrir menú"
+          aria-expanded={menuOpen}
+          type="button"
+        >
+          {menuOpen ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
+        </button>
       </header>
+
+      {menuOpen && (
+        <div className="mobile-menu">
+          {categorias.map((c) => (
+            <a key={c.id} href={`#${c.slug}`} onClick={() => setMenuOpen(false)}>
+              {c.nombre}
+            </a>
+          ))}
+          <Link href="/descubre-tu-camino" onClick={() => setMenuOpen(false)}>
+            Descubre tu camino
+          </Link>
+          <div className="mobile-menu-row">
+            <ThemeToggle />
+            <button
+              className="search-btn"
+              onClick={() => setSearchOpen((o) => !o)}
+              aria-label="Buscar"
+              type="button"
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+          {searchOpen && (
+            <div className="searchbar">
+              <svg className="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              <input
+                autoFocus
+                type="text"
+                placeholder="Buscar herramientas..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="top-banner">
         <img src="/banner.jpg" alt="Millonario Digital" />
@@ -120,14 +183,26 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
 
       <div className="hero">
         <div className="circuit-bg" />
-        <span className="eyebrow mono">INGRESOS DIGITALES · ANALIZADOS</span>
+        <span className="eyebrow mono">INGRESOS DIGITALES · POTENCIADOS POR IA</span>
         <h1>
-          Las herramientas que sí están <span className="grad">generando dinero</span> ahora mismo.
+          Formas reales de generar ingresos digitales, <span className="grad">aceleradas por la IA</span>.
         </h1>
         <p>
-          Reseñas y comparativas de plataformas, programas y herramientas de IA — probadas con
-          criterio propio, no con promesas.
+          Reseñas y guías de trading, cripto, freelancing y e-commerce — te mostramos cómo la
+          inteligencia artificial te ayuda a avanzar más rápido en cada una, con criterio propio,
+          no con promesas.
         </p>
+
+        <Link href="/descubre-tu-camino" className="quiz-cta">
+          <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
+          <h2>¿No sabes por dónde empezar?</h2>
+          <p>
+            Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales
+            encaja contigo: trading, cripto, freelancing, e-commerce o creación de contenido con
+            IA.
+          </p>
+          <span className="quiz-cta-btn">Descubre tu camino →</span>
+        </Link>
       </div>
 
       {/* Chips de acceso rápido a cada categoría */}
@@ -238,7 +313,13 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
               const cat = categorias.find((c) => c.id === a.categoria_id);
               return (
                 <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
-                  <div className="thumb">{(cat?.nombre || 'ARTÍCULO').toUpperCase()}</div>
+                  <div className="thumb">
+                    {a.portada ? (
+                      <img src={a.portada} alt={a.titulo} />
+                    ) : (
+                      (cat?.nombre || 'ARTÍCULO').toUpperCase()
+                    )}
+                  </div>
                   <div className="body">
                     <span className="cat-label">{(cat?.nombre || '').toUpperCase()}</span>
                     <h4>{a.titulo}</h4>
@@ -265,24 +346,33 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </div>
       </div>
 
+      {bannerInferior && (
+        <div className="top-banner" style={{ margin: '30px 0' }}>
+          <img src={bannerInferior} alt="Millonario Digital" />
+        </div>
+      )}
+
       <div className="brand">
         <img className="brand-mark" src="/logo.png" alt="Millonario Digital" />
         <div>
           <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
             QUIÉNES SOMOS
           </span>
-          <h2>Millonario Digital no vende humo — vende criterio.</h2>
+          <h2>Millonario Digital no vende humo — vende criterio, potenciado por IA.</h2>
           <p>
-            Nacimos de una idea simple: la mayoría de sitios sobre &quot;hacer dinero online&quot;
-            recomiendan lo que sea que pague mejor comisión. Nosotros hacemos lo contrario —
-            filtramos, probamos y solo mostramos lo que realmente sirve, empezando por lo que
-            conocemos de primera mano: mercados, IA y negocios digitales.
+            Vivimos un momento en el que la inteligencia artificial hace posible que una persona
+            bien orientada logre en días lo que antes tomaba meses — en trading, freelancing,
+            contenido o comercio digital. La mayoría de sitios sobre &quot;hacer dinero
+            online&quot; recomiendan lo que sea que pague mejor comisión; nosotros hacemos lo
+            contrario — filtramos, probamos y solo mostramos lo que realmente sirve, y cómo la IA
+            puede ayudarte a sacarle más provecho, empezando por lo que conocemos de primera mano:
+            mercados, IA y negocios digitales.
           </p>
           <span className="signature mono">— EL EQUIPO DE MILLONARIO DIGITAL</span>
         </div>
       </div>
 
-      <div className="capture">
+      <div className="capture" id="capture">
         <h2>Recibe las herramientas nuevas antes que nadie</h2>
         <p>Cada semana analizamos una plataforma o programa nuevo. Súmate para recibirlo directo, sin spam.</p>
         <form onSubmit={handleSubscribe}>
@@ -336,9 +426,16 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         <div>
           <h5 className="mono">RECURSOS</h5>
           <ul>
-            <li><a href="#">Últimos análisis</a></li>
-            <li><a href="#">Newsletter</a></li>
-            <li><a href="#">Sobre nosotros</a></li>
+            <li><Link href="/blog">Últimos análisis</Link></li>
+            <li><Link href="/descubre-tu-camino">Descubre tu camino</Link></li>
+            <li><a href="#capture">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 className="mono">EL SITIO</h5>
+          <ul>
+            <li><Link href="/quienes-somos">Quiénes somos</Link></li>
+            <li><Link href="/politicas-de-uso">Políticas de uso</Link></li>
           </ul>
         </div>
       </footer>
