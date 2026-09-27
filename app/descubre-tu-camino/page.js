@@ -37,7 +37,7 @@ export default async function DescubreTuCaminoPage() {
         </nav>
       </header>
 
-      <div className="content-panel" style={{ maxWidth: '800px', margin: '4vh auto 8vh' }}>
+      <div className="content-panel" style={{ maxWidth: '920px', margin: '4vh auto 8vh' }}>
         <Cuestionario programas={programas} categorias={categorias || []} />
       </div>
 
