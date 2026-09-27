@@ -37,7 +37,9 @@ export default async function DescubreTuCaminoPage() {
         </nav>
       </header>
 
-      <Cuestionario programas={programas} categorias={categorias || []} />
+      <div className="content-panel" style={{ maxWidth: '800px', margin: '4vh auto 8vh' }}>
+        <Cuestionario programas={programas} categorias={categorias || []} />
+      </div>
 
       <div className="foot-bottom" style={{ borderTop: '1px solid var(--line)' }}>
         <span>© {new Date().getFullYear()} Millonario Digital</span>
@@ -48,4 +50,3 @@ export default async function DescubreTuCaminoPage() {
     </>
   );
 }
-
