@@ -95,7 +95,7 @@ export default function Cuestionario({ programas = [], categorias = [] }) {
                 </Link>
               )}
               {recomendados.length > 0 && (
-                <div className="grid" style={{ marginTop: '24px' }}>
+                <div className="grid quiz-result-grid" style={{ marginTop: '24px' }}>
                   {recomendados.map((p) => (
                     <ProgramCard programa={p} key={p.id} />
                   ))}
@@ -140,3 +140,4 @@ export default function Cuestionario({ programas = [], categorias = [] }) {
     </div>
   );
 }
+
