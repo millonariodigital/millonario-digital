@@ -1,4 +1,6 @@
 import { supabase } from '../lib/supabaseClient';
+import { portadaUrl } from '../lib/portada';
+import { imagenSitio } from '../lib/assets';
 import CatalogoInteractivo from '../components/CatalogoInteractivo';
 
 // Vuelve a traer los datos de Supabase como máximo cada 60 segundos,
@@ -12,10 +14,15 @@ export default async function Home() {
     .select('*')
     .order('orden', { ascending: true });
 
-  const { data: programas } = await supabase
+  const { data: programasRaw } = await supabase
     .from('programas')
     .select('*')
     .eq('activo', true);
+
+  const programas = (programasRaw || []).map((p) => ({
+    ...p,
+    portada: portadaUrl(p.slug),
+  }));
 
   const { data: articulos } = await supabase
     .from('articulos')
@@ -24,11 +31,19 @@ export default async function Home() {
     .order('fecha_publicacion', { ascending: false })
     .limit(3);
 
+  const articulosConPortada = (articulos || []).map((a) => ({
+    ...a,
+    portada: portadaUrl(a.slug),
+  }));
+
+  const bannerInferior = imagenSitio('banner-inferior');
+
   return (
     <CatalogoInteractivo
       categorias={categorias || []}
       programas={programas || []}
-      articulos={articulos || []}
+      articulos={articulosConPortada}
+      bannerInferior={bannerInferior}
     />
   );
 }
