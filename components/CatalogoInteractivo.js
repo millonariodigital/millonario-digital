@@ -192,18 +192,17 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           inteligencia artificial te ayuda a avanzar más rápido en cada una, con criterio propio,
           no con promesas.
         </p>
-
-        <Link href="/descubre-tu-camino" className="quiz-cta">
-          <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
-          <h2>¿No sabes por dónde empezar?</h2>
-          <p>
-            Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales
-            encaja contigo: trading, cripto, freelancing, e-commerce o creación de contenido con
-            IA.
-          </p>
-          <span className="quiz-cta-btn">Descubre tu camino →</span>
-        </Link>
       </div>
+
+      <Link href="/descubre-tu-camino" className="quiz-cta">
+        <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
+        <h2>¿No sabes por dónde empezar?</h2>
+        <p>
+          Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales encaja
+          contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.
+        </p>
+        <span className="quiz-cta-btn">Descubre tu camino →</span>
+      </Link>
 
       {/* Chips de acceso rápido a cada categoría */}
       <div className="rail">
