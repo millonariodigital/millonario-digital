@@ -3,14 +3,7 @@ import './globals.css';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital-web.vercel.app';
 
 export const metadata = {
-    'ganar dinero con inteligencia artificial',
-    'trading',
-    'inteligencia artificial',
-    'criptomonedas',
-    'freelancing',
-    'e-commerce',
-  ],
-  alternatmetadataBase: new URL(SITE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Millonario Digital — Ingresos digitales impulsados por IA',
     template: '%s | Millonario Digital',
@@ -20,7 +13,14 @@ export const metadata = {
   keywords: [
     'ingresos digitales',
     'ganar dinero online',
-  es: { canonical: '/' },
+    'ganar dinero con inteligencia artificial',
+    'trading',
+    'inteligencia artificial',
+    'criptomonedas',
+    'freelancing',
+    'e-commerce',
+  ],
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'es_HN',
@@ -77,4 +77,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
