@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { supabase } from '../../lib/supabaseClient';
+import { portadaUrl } from '../../lib/portada';
 import ThemeToggle from '../../components/ThemeToggle';
 import Cuestionario from '../../components/Cuestionario';
 
@@ -19,7 +20,10 @@ export default async function DescubreTuCaminoPage() {
     .order('orden', { ascending: true });
 
   const { data: programasRaw } = await supabase.from('programas').select('*').eq('activo', true);
-  const programas = programasRaw || [];
+  const programas = (programasRaw || []).map((p) => ({
+    ...p,
+    portada: portadaUrl(p.slug),
+  }));
 
   return (
     <>
