@@ -105,7 +105,7 @@ export default async function CategoriaPage({ params, searchParams }) {
 
         <div className="grid">
           {visibles.map((p) => (
-            <ProgramCard programa={p} key={p.id} />
+            <ProgramCard programa={p} categoriaNombre={categoria.nombre} key={p.id} />
           ))}
           {visibles.length === 0 && (
             <p style={{ color: 'var(--text-dim)' }}>Todavía no hay programas cargados aquí.</p>
