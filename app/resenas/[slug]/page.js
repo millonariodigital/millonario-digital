@@ -1,6 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
 import ThemeToggle from '../../../components/ThemeToggle';
+import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT, iconoUrl } from '../../../lib/acentos';
+import LogoImg from '../../../components/LogoImg';
+import { portadaUrl } from '../../../lib/portada';
 
 export const revalidate = 60;
 
@@ -53,6 +57,8 @@ export default async function ResenaPage({ params }) {
 
   const programa = resena.programas;
   const categoria = programa?.categorias;
+  const portada = portadaUrl(programa?.slug);
+  const colorAcento = COLOR_ACENTO[programa?.slug] || COLOR_ACENTO_DEFAULT;
 
   let articuloRelacionado = null;
   if (programa?.categoria_id) {
@@ -102,14 +108,38 @@ export default async function ResenaPage({ params }) {
         className="content-panel"
         style={{ maxWidth: '760px', margin: '4vh auto 8vh', padding: '5vh 6vw' }}
       >
+        {portada && (
+          <div className="portada-banner">
+            <Image
+              src={portada}
+              alt={programa?.nombre || resena.titulo}
+              fill
+              sizes="(max-width: 800px) 100vw, 760px"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          </div>
+        )}
+
         {categoria?.nombre && (
-          <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
-            {categoria.nombre.toUpperCase()} · RESEÑA
+          <span
+            className="mono"
+            style={{ fontSize: '0.78rem', color: 'var(--cyan)', display: 'inline-block', marginTop: portada ? '4px' : 0 }}
+          >
+            {categoria.nombre.toUpperCase()}
           </span>
         )}
 
         <div className="review-head" style={{ marginTop: '10px' }}>
-          {programa?.logo_url && <img src={programa.logo_url} alt={programa.nombre} />}
+          {!portada && programa && (
+            <div className="review-logo-badge" style={{ '--acento': colorAcento }}>
+              <LogoImg
+                slug={programa.slug}
+                simpleSrc={iconoUrl(programa.slug)}
+                alt={programa.nombre}
+              />
+            </div>
+          )}
           <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.3rem)', lineHeight: 1.25 }}>
             {resena.titulo}
           </h1>
@@ -158,4 +188,3 @@ export default async function ResenaPage({ params }) {
     </>
   );
 }
-
