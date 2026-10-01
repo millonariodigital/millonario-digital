@@ -435,6 +435,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <ul>
             <li><Link href="/quienes-somos">Quiénes somos</Link></li>
             <li><Link href="/politicas-de-uso">Políticas de uso</Link></li>
+            <li><Link href="/contacto">Contacto</Link></li>
           </ul>
         </div>
       </footer>
