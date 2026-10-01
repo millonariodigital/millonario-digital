@@ -194,16 +194,6 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </p>
       </div>
 
-      <Link href="/descubre-tu-camino" className="quiz-cta">
-        <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
-        <h2>¿No sabes por dónde empezar?</h2>
-        <p>
-          Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales encaja
-          contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.
-        </p>
-        <span className="quiz-cta-btn">Descubre tu camino →</span>
-      </Link>
-
       {/* Chips de acceso rápido a cada categoría */}
       <div className="rail">
         <a className="chip active" href={categorias[0] ? `#${categorias[0].slug}` : '#'}>
@@ -244,6 +234,16 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           </div>
         ))}
       </div>
+
+      <Link href="/descubre-tu-camino" className="quiz-cta">
+        <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
+        <h2>¿No sabes por dónde empezar?</h2>
+        <p>
+          Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales encaja
+          contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.
+        </p>
+        <span className="quiz-cta-btn">Descubre tu camino →</span>
+      </Link>
 
       {categorias.map((cat) => {
         const catPrograms = programas.filter((p) => p.categoria_id === cat.id);
