@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { supabase } from '../../lib/supabaseClient';
 import ThemeToggle from '../../components/ThemeToggle';
+import { portadaUrl } from '../../lib/portada';
 
 export const revalidate = 60;
 
@@ -44,9 +45,17 @@ export default async function BlogPage() {
 
       <section className="blog" style={{ paddingBottom: '6vh' }}>
         <div className="blog-grid">
-          {lista.map((a) => (
+          {lista.map((a) => {
+            const portada = portadaUrl(a.slug);
+            return (
             <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
-              <div className="thumb">{(a.categorias?.nombre || 'ARTÍCULO').toUpperCase()}</div>
+              <div className="thumb">
+                {portada ? (
+                  <img src={portada} alt={a.titulo} />
+                ) : (
+                  (a.categorias?.nombre || 'ARTÍCULO').toUpperCase()
+                )}
+              </div>
               <div className="body">
                 <span className="cat-label">{(a.categorias?.nombre || '').toUpperCase()}</span>
                 <h4>{a.titulo}</h4>
@@ -59,7 +68,8 @@ export default async function BlogPage() {
                 </span>
               </div>
             </Link>
-          ))}
+            );
+          })}
           {lista.length === 0 && (
             <p style={{ color: 'var(--text-dim)' }}>Todavía no hay artículos publicados.</p>
           )}
