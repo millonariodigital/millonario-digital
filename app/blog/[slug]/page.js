@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
 import ThemeToggle from '../../../components/ThemeToggle';
+import { portadaUrl } from '../../../lib/portada';
 
 export const revalidate = 60;
 
@@ -54,6 +56,8 @@ export default async function ArticuloPage({ params }) {
     );
   }
 
+  const portada = portadaUrl(articulo.slug);
+
   let resenasRelacionadas = [];
   if (articulo.categoria_id) {
     const { data } = await supabase
@@ -98,8 +102,24 @@ export default async function ArticuloPage({ params }) {
         className="content-panel"
         style={{ maxWidth: '760px', margin: '4vh auto 8vh', padding: '5vh 6vw' }}
       >
+        {portada && (
+          <div className="portada-banner">
+            <Image
+              src={portada}
+              alt={articulo.titulo}
+              fill
+              sizes="(max-width: 800px) 100vw, 760px"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          </div>
+        )}
+
         {articulo.categorias?.nombre && (
-          <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
+          <span
+            className="mono"
+            style={{ fontSize: '0.78rem', color: 'var(--cyan)', display: 'inline-block', marginTop: portada ? '4px' : 0 }}
+          >
             {articulo.categorias.nombre.toUpperCase()}
           </span>
         )}
@@ -129,7 +149,7 @@ export default async function ArticuloPage({ params }) {
               {resenasRelacionadas.map((p) => (
                 <li key={p.slug}>
                   <Link href={`/resenas/${p.slug}`} style={{ color: 'var(--cyan)' }}>
-                    Reseña de {p.nombre}
+                    Sobre {p.nombre}
                   </Link>
                 </li>
               ))}
@@ -155,4 +175,3 @@ export default async function ArticuloPage({ params }) {
     </>
   );
 }
-
