@@ -292,7 +292,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
 
             <div className="grid">
               {visible.map((p) => (
-                <ProgramCard programa={p} key={p.id} />
+                <ProgramCard programa={p} categoriaNombre={cat.nombre} key={p.id} />
               ))}
             </div>
           </section>
