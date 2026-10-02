@@ -7,7 +7,7 @@ import Cuestionario from '../../components/Cuestionario';
 export const revalidate = 60;
 
 export const metadata = {
-  title: 'Descubre tu Camino | Millonario Digital',
+  title: 'Descubre tu Camino',
   description:
     'Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales encaja mejor contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.',
   alternates: { canonical: '/descubre-tu-camino' },
