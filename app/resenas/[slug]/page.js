@@ -25,9 +25,9 @@ async function getResena(slug) {
 
 export async function generateMetadata({ params }) {
   const resena = await getResena(params.slug);
-  if (!resena) return { title: 'Reseña no encontrada — Millonario Digital' };
+  if (!resena) return { title: 'Reseña no encontrada' };
 
-  const title = `${resena.titulo} | Millonario Digital`;
+  const title = resena.titulo;
   const description =
     resena.meta_descripcion ||
     resena.programas?.descripcion_corta ||
