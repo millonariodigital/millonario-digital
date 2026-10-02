@@ -18,9 +18,9 @@ async function getCategoria(slug) {
 
 export async function generateMetadata({ params }) {
   const categoria = await getCategoria(params.slug);
-  if (!categoria) return { title: 'Categoría no encontrada — Millonario Digital' };
+  if (!categoria) return { title: 'Categoría no encontrada' };
 
-  const title = `${categoria.nombre} — Herramientas y programas analizados | Millonario Digital`;
+  const title = `${categoria.nombre} — Herramientas y programas analizados`;
   const description =
     categoria.descripcion ||
     `Las mejores herramientas y programas de ${categoria.nombre}, probadas y comparadas con criterio propio.`;
