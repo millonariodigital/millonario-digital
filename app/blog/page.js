@@ -6,7 +6,7 @@ import { portadaUrl } from '../../lib/portada';
 export const revalidate = 60;
 
 export const metadata = {
-  title: 'Blog — Millonario Digital',
+  title: 'Blog',
   description:
     'Guías y análisis sobre trading, inversión, IA, crypto, freelancing y e-commerce, escritos con criterio propio, no por comisión.',
   alternates: { canonical: '/blog' },
