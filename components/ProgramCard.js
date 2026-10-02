@@ -50,7 +50,7 @@ export default function ProgramCard({ programa, categoriaNombre }) {
     <div className="card card-rich">
       {programa.portada ? (
         <div className="card-hero">
-          <img src={programa.portada} alt={programa.nombre} />
+          <img src={programa.portada} alt={programa.nombre} loading="lazy" decoding="async" />
         </div>
       ) : (
         <div className="card-banner" style={{ background: color }}>

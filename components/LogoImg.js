@@ -30,6 +30,8 @@ export default function LogoImg({ slug, simpleSrc, className, alt = '' }) {
       className={className}
       src={src}
       alt={alt}
+      loading="lazy"
+      decoding="async"
       onError={() => setPaso((p) => p + 1)}
     />
   );

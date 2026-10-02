@@ -327,7 +327,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
                 <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
                   <div className="thumb">
                     {a.portada ? (
-                      <img src={a.portada} alt={a.titulo} />
+                      <img src={a.portada} alt={a.titulo} loading="lazy" decoding="async" />
                     ) : (
                       (cat?.nombre || 'ARTÍCULO').toUpperCase()
                     )}
