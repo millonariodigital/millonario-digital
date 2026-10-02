@@ -23,9 +23,9 @@ async function getArticulo(slug) {
 
 export async function generateMetadata({ params }) {
   const articulo = await getArticulo(params.slug);
-  if (!articulo) return { title: 'Artículo no encontrado — Millonario Digital' };
+  if (!articulo) return { title: 'Artículo no encontrado' };
 
-  const title = `${articulo.titulo} | Millonario Digital`;
+  const title = articulo.titulo;
   const description = articulo.meta_descripcion || articulo.resumen || articulo.titulo;
 
   return {
