@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ThemeToggle from '../../components/ThemeToggle';
 
 export const metadata = {
-  title: 'Quiénes Somos | Millonario Digital',
+  title: 'Quiénes Somos',
   description:
     'Conoce la misión de Millonario Digital: ayudarte a generar ingresos digitales aprovechando la inteligencia artificial, con reseñas probadas de primera mano.',
   alternates: { canonical: '/quienes-somos' },
