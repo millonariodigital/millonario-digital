@@ -2,7 +2,7 @@ import Link from 'next/link';
 import ThemeToggle from '../../components/ThemeToggle';
 
 export const metadata = {
-  title: 'Políticas de Uso | Millonario Digital',
+  title: 'Políticas de Uso',
   description:
     'Políticas de uso de Millonario Digital: aviso de afiliados, límites de responsabilidad y condiciones de uso del sitio.',
   alternates: { canonical: '/politicas-de-uso' },
@@ -36,7 +36,7 @@ export default function PoliticasDeUsoPage() {
           Políticas de Uso
         </h1>
         <span className="date" style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>
-          Última actualización: [fecha]
+          Última actualización: 1 de octubre de 2026
         </span>
 
         <div className="article-body" style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}>
@@ -104,7 +104,12 @@ export default function PoliticasDeUsoPage() {
           </p>
 
           <h2>9. Contacto</h2>
-          <p>Si tienes preguntas sobre estas políticas, puedes escribirnos a: [correo de contacto]</p>
+          <p>
+            Si tienes preguntas sobre estas políticas, puedes escribirnos a:{' '}
+            <a href="mailto:contacto@millonario-digital.com" style={{ color: 'var(--cyan)' }}>
+              contacto@millonario-digital.com
+            </a>
+          </p>
         </div>
       </article>
 
