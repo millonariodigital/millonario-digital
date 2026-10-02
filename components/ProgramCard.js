@@ -1,5 +1,5 @@
 import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT, textoParaFondo, iconoUrl } from '../lib/acentos';
-import { CALIFICACION, DIFICULTAD } from '../lib/calificaciones';
+import { CALIFICACION, DIFICULTAD, CURSO_PROPIO } from '../lib/calificaciones';
 import LogoImg from './LogoImg';
 
 function IconoEstrella() {
@@ -29,12 +29,22 @@ function IconoNivel() {
   );
 }
 
+function IconoCursoPropio() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 3L1 8l11 5 9-4.1V17h2V8L12 3z" />
+      <path d="M5 10.5V15c0 1.66 3.13 3 7 3s7-1.34 7-3v-4.5l-7 3.18-7-3.18z" />
+    </svg>
+  );
+}
+
 export default function ProgramCard({ programa, categoriaNombre }) {
   const color = COLOR_ACENTO[programa.slug] || COLOR_ACENTO_DEFAULT;
   const textColor = textoParaFondo(color);
   const calificacion = CALIFICACION[programa.slug];
   const dificultad = DIFICULTAD[programa.slug];
   const categoria = categoriaNombre || null;
+  const esCursoPropio = CURSO_PROPIO.includes(programa.slug);
 
   return (
     <div className="card card-rich">
@@ -79,14 +89,22 @@ export default function ProgramCard({ programa, categoriaNombre }) {
 
       <p>{programa.descripcion_corta}</p>
 
-      {(calificacion || categoria || dificultad) && (
+      {(calificacion || categoria || dificultad || esCursoPropio) && (
         <div className="card-stats-row">
-          {calificacion && (
+          {esCursoPropio ? (
             <div className="card-stat">
-              <IconoEstrella />
-              <strong>{calificacion}</strong>
-              <span>Calificación</span>
+              <IconoCursoPropio />
+              <strong>Curso propio</strong>
+              <span>Origen</span>
             </div>
+          ) : (
+            calificacion && (
+              <div className="card-stat">
+                <IconoEstrella />
+                <strong>{calificacion}</strong>
+                <span>Calificación</span>
+              </div>
+            )
           )}
           {categoria && (
             <div className="card-stat">
@@ -99,7 +117,7 @@ export default function ProgramCard({ programa, categoriaNombre }) {
             <div className="card-stat">
               <IconoNivel />
               <strong>{dificultad}</strong>
-              <span>Ideal para</span>
+              <span>Nivel</span>
             </div>
           )}
         </div>
