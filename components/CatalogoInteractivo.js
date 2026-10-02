@@ -6,6 +6,19 @@ import { supabase } from '../lib/supabaseClient';
 import ProgramCard from './ProgramCard';
 import ThemeToggle from './ThemeToggle';
 
+// Links reales de las redes sociales de Millonario Digital. Mientras una
+// quede en null, su ícono no se muestra en el footer (para no publicar
+// enlaces rotos). Cuando tengas el link real, solo reemplaza el null.
+const REDES_SOCIALES = {
+  facebook: null,
+  instagram: null,
+  youtube: null,
+  tiktok: null,
+};
+
+// Cambia a false si quieres ocultar esta sección temporalmente.
+const MOSTRAR_PODCAST = true;
+
 export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -337,13 +350,15 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </section>
       )}
 
-      <div className="podcast">
-        <div>
-          <span className="eyebrow mono">PODCAST Y YOUTUBE</span>
-          <h2>Escucha o mira nuestros análisis semanales.</h2>
-          <p>Conversaciones sobre mercados, IA y negocios digitales — próximamente disponible.</p>
+      {MOSTRAR_PODCAST && (
+        <div className="podcast">
+          <div>
+            <span className="eyebrow mono">PODCAST Y YOUTUBE</span>
+            <h2>Escucha o mira nuestros análisis semanales.</h2>
+            <p>Conversaciones sobre mercados, IA y negocios digitales — próximamente disponible.</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {bannerInferior && (
         <div className="top-banner" style={{ margin: '30px 0' }}>
@@ -397,20 +412,30 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             </span>
           </div>
           <p>Reseñas y comparativas de programas, plataformas y herramientas de IA para generar ingresos digitales. Este sitio contiene enlaces de afiliados.</p>
-          <div className="social-links">
-            <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.8 8.44-4.95 8.44-9.94Z"/></svg>
-            </a>
-            <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-            </a>
-            <a href="#" aria-label="YouTube" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.45-5.17a2.9 2.9 0 0 0-2.03-2.05C18.87 4.3 12 4.3 12 4.3s-6.87 0-8.52.48a2.9 2.9 0 0 0-2.03 2.05C1 8.5 1 12 1 12s0 3.5.45 5.17c.25.95 1 1.7 2.03 2.05 1.65.48 8.52.48 8.52.48s6.87 0 8.52-.48a2.9 2.9 0 0 0 2.03-2.05C23 15.5 23 12 23 12Zm-13.5 3.25V8.75L15.5 12Z"/></svg>
-            </a>
-            <a href="#" aria-label="TikTok" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.6a2.9 2.9 0 1 1-2.1-2.79V9.5a6.1 6.1 0 1 0 5.3 6.06V8.4a7.6 7.6 0 0 0 4.4 1.4V6.6a4.4 4.4 0 0 1-4.4-4.4Z"/></svg>
-            </a>
-          </div>
+          {(REDES_SOCIALES.facebook || REDES_SOCIALES.instagram || REDES_SOCIALES.youtube || REDES_SOCIALES.tiktok) && (
+            <div className="social-links">
+              {REDES_SOCIALES.facebook && (
+                <a href={REDES_SOCIALES.facebook} aria-label="Facebook" target="_blank" rel="noopener">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.8 8.44-4.95 8.44-9.94Z"/></svg>
+                </a>
+              )}
+              {REDES_SOCIALES.instagram && (
+                <a href={REDES_SOCIALES.instagram} aria-label="Instagram" target="_blank" rel="noopener">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+                </a>
+              )}
+              {REDES_SOCIALES.youtube && (
+                <a href={REDES_SOCIALES.youtube} aria-label="YouTube" target="_blank" rel="noopener">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.45-5.17a2.9 2.9 0 0 0-2.03-2.05C18.87 4.3 12 4.3 12 4.3s-6.87 0-8.52.48a2.9 2.9 0 0 0-2.03 2.05C1 8.5 1 12 1 12s0 3.5.45 5.17c.25.95 1 1.7 2.03 2.05 1.65.48 8.52.48 8.52.48s6.87 0 8.52-.48a2.9 2.9 0 0 0 2.03-2.05C23 15.5 23 12 23 12Zm-13.5 3.25V8.75L15.5 12Z"/></svg>
+                </a>
+              )}
+              {REDES_SOCIALES.tiktok && (
+                <a href={REDES_SOCIALES.tiktok} aria-label="TikTok" target="_blank" rel="noopener">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.6a2.9 2.9 0 1 1-2.1-2.79V9.5a6.1 6.1 0 1 0 5.3 6.06V8.4a7.6 7.6 0 0 0 4.4 1.4V6.6a4.4 4.4 0 0 1-4.4-4.4Z"/></svg>
+                </a>
+              )}
+            </div>
+          )}
         </div>
         <div>
           <h5 className="mono">APRENDE DE</h5>
