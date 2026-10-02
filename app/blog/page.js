@@ -51,7 +51,7 @@ export default async function BlogPage() {
             <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
               <div className="thumb">
                 {portada ? (
-                  <img src={portada} alt={a.titulo} />
+                  <img src={portada} alt={a.titulo} loading="lazy" decoding="async" />
                 ) : (
                   (a.categorias?.nombre || 'ARTÍCULO').toUpperCase()
                 )}
