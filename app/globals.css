@@ -546,8 +546,8 @@
   .card-stat svg { color: var(--cyan); }
   .card-stat strong {
     font-size: 0.82rem; color: var(--text); font-weight: 700;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     max-width: 100%; width: 100%; display: block;
+    white-space: normal; line-height: 1.2; word-break: break-word;
   }
   .card-stat span { font-size: 0.68rem; letter-spacing: 0.02em; }
   .card-links-stacked { flex-direction: column; align-items: stretch; gap: 10px; }
