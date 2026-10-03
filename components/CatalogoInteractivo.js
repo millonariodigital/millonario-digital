@@ -230,10 +230,10 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
       </svg>
       <div className="stats">
         {[
-          { num: '89+', label: 'herramientas analizadas', dash: '232.2 263.9' },
-          { num: '5', label: 'categorías de ingreso digital', dash: '263.9 263.9' },
-          { num: '41', label: 'artículos de blog con guías y comparativas', dash: '210.0 263.9' },
-          { num: '100%', label: 'reseñas con pros y contras reales', dash: '263.9 263.9' },
+          { num: '89+', label: 'Herramientas analizadas', dash: '232.2 263.9' },
+          { num: '5', label: 'Categorías de ingreso digital', dash: '263.9 263.9' },
+          { num: '41', label: 'Artículos de blog con guías y comparativas', dash: '210.0 263.9' },
+          { num: '100%', label: 'Reseñas con pros y contras reales', dash: '263.9 263.9' },
         ].map((s) => (
           <div className="stat-item" key={s.label}>
             <div className="stat-ring">
