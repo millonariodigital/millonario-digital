@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
 import ThemeToggle from '../../../components/ThemeToggle';
-import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT, iconoUrl } from '../../../lib/acentos';
+import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT } from '../../../lib/acentos';
+import { logoUrl } from '../../../lib/logos';
 import LogoImg from '../../../components/LogoImg';
 import { portadaUrl } from '../../../lib/portada';
 
@@ -58,7 +59,17 @@ export default async function ResenaPage({ params }) {
   const programa = resena.programas;
   const categoria = programa?.categorias;
   const portada = portadaUrl(programa?.slug);
+  const logo = logoUrl(programa?.slug);
   const colorAcento = COLOR_ACENTO[programa?.slug] || COLOR_ACENTO_DEFAULT;
+
+  // Si la tabla "resenas" tiene fecha de actualización o creación
+  // (Supabase la agrega automáticamente como "created_at"), la
+  // mostramos. Si no existe, simplemente no se muestra ninguna
+  // fecha — nunca inventamos una.
+  const fechaRaw = resena.actualizado_en || resena.updated_at || resena.created_at || null;
+  const fechaResena = fechaRaw
+    ? new Date(fechaRaw).toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null;
 
   let articuloRelacionado = null;
   if (programa?.categoria_id) {
@@ -78,6 +89,7 @@ export default async function ResenaPage({ params }) {
     itemReviewed: { '@type': 'Product', name: programa?.nombre },
     author: { '@type': 'Organization', name: 'Millonario Digital' },
     reviewBody: resena.titulo,
+    ...(fechaRaw ? { datePublished: fechaRaw } : {}),
   };
 
   return (
@@ -131,19 +143,23 @@ export default async function ResenaPage({ params }) {
         )}
 
         <div className="review-head" style={{ marginTop: '10px' }}>
-          {!portada && programa && (
+          {!portada && programa && logo && (
             <div className="review-logo-badge" style={{ '--acento': colorAcento }}>
-              <LogoImg
-                slug={programa.slug}
-                simpleSrc={iconoUrl(programa.slug)}
-                alt={programa.nombre}
-              />
+              <LogoImg src={logo} alt={programa.nombre} />
             </div>
           )}
           <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.3rem)', lineHeight: 1.25 }}>
             {resena.titulo}
           </h1>
         </div>
+
+        <p
+          className="review-byline"
+          style={{ marginTop: '6px', fontSize: '0.82rem', color: 'var(--text-dim)' }}
+        >
+          Analizado por el equipo de Millonario Digital
+          {fechaResena && <> · Actualizado el {fechaResena}</>}
+        </p>
 
         <div
           className="article-body"
@@ -153,6 +169,17 @@ export default async function ResenaPage({ params }) {
 
         {programa && (
           <div className="review-cta">
+            <p
+              className="affiliate-disclosure"
+              style={{ fontSize: '0.78rem', color: 'var(--text-dim)', marginBottom: '10px' }}
+            >
+              💡 Este enlace es de afiliado: si te registras, podemos ganar una comisión sin costo
+              extra para ti. No cambia nuestra opinión —{' '}
+              <Link href="/politicas-de-uso" style={{ color: 'var(--cyan)' }}>
+                más información aquí
+              </Link>
+              .
+            </p>
             <a
               className="affiliate-btn"
               href={`/ir/${programa.slug}`}
