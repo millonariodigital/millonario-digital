@@ -4,7 +4,7 @@ import ThemeToggle from '../../components/ThemeToggle';
 export const metadata = {
   title: 'Quiénes Somos',
   description:
-    'Conoce la misión de Millonario Digital: ayudarte a generar ingresos digitales aprovechando la inteligencia artificial, con reseñas probadas de primera mano.',
+    'Conoce la misión de Millonario Digital: ayudarte a generar ingresos digitales aprovechando la inteligencia artificial, con reseñas honestas basadas en investigación real.',
   alternates: { canonical: '/quienes-somos' },
 };
 
@@ -52,9 +52,10 @@ export default function QuienesSomosPage() {
           </p>
           <p>
             No somos una casa de bolsa, un banco ni una entidad financiera regulada. Somos un
-            sitio de información y reseñas: investigamos, probamos y explicamos en español claro
-            qué ofrece cada plataforma, para que tú decidas con más criterio antes de registrarte
-            o invertir tu dinero.
+            sitio de información y reseñas: investigamos y explicamos en español claro qué
+            ofrece cada plataforma, con base en fuentes públicas y documentación oficial de cada
+            programa, para que tú decidas con más criterio antes de registrarte o invertir tu
+            dinero.
           </p>
 
           <h2>Nuestra misión</h2>
