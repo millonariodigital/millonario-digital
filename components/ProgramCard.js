@@ -1,4 +1,4 @@
-import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT, textoParaFondo, iconoUrl } from '../lib/acentos';
+import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT, textoParaFondo } from '../lib/acentos';
 import { CALIFICACION, DIFICULTAD, CURSO_PROPIO } from '../lib/calificaciones';
 import LogoImg from './LogoImg';
 
@@ -54,11 +54,13 @@ export default function ProgramCard({ programa, categoriaNombre }) {
         </div>
       ) : (
         <div className="card-banner" style={{ background: color }}>
-          <LogoImg
-            slug={programa.slug}
-            simpleSrc={iconoUrl(programa.slug)}
-            className="card-banner-icon"
-          />
+          {programa.logo ? (
+            <LogoImg src={programa.logo} className="card-banner-icon" alt={programa.nombre} />
+          ) : esCursoPropio ? (
+            <span className="card-banner-icon" style={{ color: textColor }}>
+              <IconoCursoPropio />
+            </span>
+          ) : null}
           <span className="card-banner-name" style={{ color: textColor }}>
             {programa.nombre}
           </span>
@@ -67,11 +69,11 @@ export default function ProgramCard({ programa, categoriaNombre }) {
 
       <div className="card-id-row">
         <div className="card-id-badge" style={{ '--acento': color }}>
-          <LogoImg
-            slug={programa.slug}
-            simpleSrc={iconoUrl(programa.slug)}
-            alt={programa.nombre}
-          />
+          {programa.logo ? (
+            <LogoImg src={programa.logo} alt={programa.nombre} />
+          ) : esCursoPropio ? (
+            <IconoCursoPropio />
+          ) : null}
         </div>
         <div>
           <h3 style={{ margin: 0 }}>{programa.nombre}</h3>
