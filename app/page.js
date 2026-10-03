@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabaseClient';
 import { portadaUrl } from '../lib/portada';
+import { logoUrl } from '../lib/logos';
 import { imagenSitio } from '../lib/assets';
 import CatalogoInteractivo from '../components/CatalogoInteractivo';
 
@@ -22,6 +23,7 @@ export default async function Home() {
   const programas = (programasRaw || []).map((p) => ({
     ...p,
     portada: portadaUrl(p.slug),
+    logo: logoUrl(p.slug),
   }));
 
   const { data: articulos } = await supabase
