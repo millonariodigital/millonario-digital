@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { supabase } from '../../../lib/supabaseClient';
 import ThemeToggle from '../../../components/ThemeToggle';
 import { portadaUrl } from '../../../lib/portada';
+import CompartirBotones from '../../../components/CompartirBotones';
 
 export const revalidate = 60;
 
@@ -139,6 +140,8 @@ export default async function ArticuloPage({ params }) {
           style={{ marginTop: '28px', lineHeight: 1.75, color: 'var(--text)' }}
           dangerouslySetInnerHTML={{ __html: articulo.contenido }}
         />
+
+        <CompartirBotones titulo={articulo.titulo} />
 
         {resenasRelacionadas.length > 0 && (
           <div style={{ marginTop: '36px' }}>
