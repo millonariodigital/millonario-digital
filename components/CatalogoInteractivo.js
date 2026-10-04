@@ -10,10 +10,10 @@ import ThemeToggle from './ThemeToggle';
 // quede en null, su ícono no se muestra en el footer (para no publicar
 // enlaces rotos). Cuando tengas el link real, solo reemplaza el null.
 const REDES_SOCIALES = {
-  facebook: null,
-  instagram: null,
-  youtube: null,
-  tiktok: null,
+  facebook: 'https://www.facebook.com/millonariodigitallatam',
+  instagram: 'https://www.instagram.com/millonariodigital_oficial',
+  youtube: 'https://www.youtube.com/@millonariodigital_oficial',
+  tiktok: 'https://www.tiktok.com/@millonariodigita_oficial',
 };
 
 // Cambia a false si quieres ocultar esta sección temporalmente.
