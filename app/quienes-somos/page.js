@@ -4,7 +4,7 @@ import ThemeToggle from '../../components/ThemeToggle';
 export const metadata = {
   title: 'Quiénes Somos',
   description:
-    'Conoce la misión de Millonario Digital: ayudarte a generar ingresos digitales aprovechando la inteligencia artificial, con reseñas honestas basadas en investigación real.',
+    'Conoce la misión de Millonario Digital: ayudar a cualquier persona, sin importar su país, a generar ingresos digitales aprovechando la inteligencia artificial, con reseñas honestas basadas en investigación real.',
   alternates: { canonical: '/quienes-somos' },
 };
 
@@ -38,10 +38,10 @@ export default function QuienesSomosPage() {
 
         <div className="article-body" style={{ lineHeight: 1.75, color: 'var(--text)' }}>
           <p>
-            Millonario Digital nació con un objetivo simple: ayudar a personas de habla hispana a
-            conocer, comparar y aprovechar herramientas, plataformas y programas para generar
-            ingresos en línea — desde trading e inversión hasta inteligencia artificial,
-            freelancing y comercio digital.
+            Millonario Digital nació con un objetivo simple: ayudar a cualquier persona, sin
+            importar en qué país viva, a conocer, comparar y aprovechar herramientas, plataformas
+            y programas para generar ingresos en línea — desde trading e inversión hasta
+            inteligencia artificial, freelancing y comercio digital.
           </p>
           <p>
             Vivimos un momento distinto a cualquier otro: la inteligencia artificial le da a una
@@ -60,11 +60,11 @@ export default function QuienesSomosPage() {
 
           <h2>Nuestra misión</h2>
           <p>
-            Hacer accesible, en español, la información que normalmente solo se encuentra en
-            inglés o dispersa en decenas de sitios — para que más personas en Latinoamérica
-            puedan tomar decisiones informadas sobre cómo generar ingresos adicionales por
-            internet, aprovechando la inteligencia artificial como acelerador y no como reemplazo
-            del criterio propio.
+            Hacer accesible la información que normalmente solo se encuentra en inglés o dispersa
+            en decenas de sitios — para que cualquier persona, sin importar de dónde sea, pueda
+            tomar decisiones informadas sobre cómo generar ingresos adicionales por internet,
+            aprovechando la inteligencia artificial como acelerador y no como reemplazo del
+            criterio propio.
           </p>
 
           <h2>Cómo trabajamos</h2>
