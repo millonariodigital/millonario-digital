@@ -198,7 +198,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
       )}
 
       <div className="top-banner">
-        <img src="/banner.jpg" alt="Millonario Digital" />
+        <img src="/banner.png" alt="Millonario Digital" />
       </div>
 
       <div className="hero">
