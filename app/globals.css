@@ -646,6 +646,12 @@
   .article-body li { margin-bottom: 8px; line-height: 1.6; }
   .article-body strong { color: var(--text); }
   .article-body a { color: var(--cyan); }
+  /* El contenido usa <br> sueltos como separador entre párrafos/títulos,
+     además del margin-bottom que ya da este CSS — eso duplicaba el
+     espacio. Ocultamos solo esos <br> "sueltos" (hijos directos de
+     .article-body); los <br> que van DENTRO de un párrafo (por ejemplo
+     para separar una pregunta de su respuesta en las FAQ) no se tocan. */
+  .article-body > br { display: none; }
 
   .review-head {
     display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
