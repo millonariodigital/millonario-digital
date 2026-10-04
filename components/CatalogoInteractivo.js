@@ -399,9 +399,9 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             bien orientada logre en días lo que antes tomaba meses — en trading, freelancing,
             contenido o comercio digital. La mayoría de sitios sobre &quot;hacer dinero
             online&quot; recomiendan lo que sea que pague mejor comisión; nosotros hacemos lo
-            contrario — filtramos, probamos y solo mostramos lo que realmente sirve, y cómo la IA
-            puede ayudarte a sacarle más provecho, empezando por lo que conocemos de primera mano:
-            mercados, IA y negocios digitales.
+            contrario — investigamos a fondo y solo mostramos lo que realmente sirve, con pros y
+            contras reales, y cómo la IA puede ayudarte a sacarle más provecho, empezando por lo
+            que conocemos de primera mano: mercados, IA y negocios digitales.
           </p>
           <span className="signature mono">— EL EQUIPO DE MILLONARIO DIGITAL</span>
         </div>
