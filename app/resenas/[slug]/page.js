@@ -6,6 +6,7 @@ import { COLOR_ACENTO, COLOR_ACENTO_DEFAULT } from '../../../lib/acentos';
 import { logoUrl } from '../../../lib/logos';
 import LogoImg from '../../../components/LogoImg';
 import { portadaUrl } from '../../../lib/portada';
+import CompartirBotones from '../../../components/CompartirBotones';
 
 export const revalidate = 60;
 
@@ -166,6 +167,8 @@ export default async function ResenaPage({ params }) {
           style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}
           dangerouslySetInnerHTML={{ __html: resena.contenido }}
         />
+
+        <CompartirBotones titulo={resena.titulo} />
 
         {programa && (
           <div className="review-cta">
