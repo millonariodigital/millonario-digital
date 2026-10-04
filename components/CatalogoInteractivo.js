@@ -19,6 +19,10 @@ const REDES_SOCIALES = {
 // Cambia a false si quieres ocultar esta sección temporalmente.
 const MOSTRAR_PODCAST = true;
 
+// Banner principal de la portada (public/banner.png). En false mientras
+// Douglas decide la versión final del diseño/colores.
+const MOSTRAR_BANNER = false;
+
 export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -197,9 +201,11 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </div>
       )}
 
-      <div className="top-banner">
-        <img src="/banner.png" alt="Millonario Digital" />
-      </div>
+      {MOSTRAR_BANNER && (
+        <div className="top-banner">
+          <img src="/banner.png" alt="Millonario Digital" />
+        </div>
+      )}
 
       <div className="hero">
         <div className="circuit-bg" />
