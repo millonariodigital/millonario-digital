@@ -507,7 +507,7 @@
   .card-links { display: flex; align-items: center; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
   .affiliate-btn {
     padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
-    color: #ffffff; text-decoration: none;
+    color: #ffffff !important; text-decoration: none;
     text-shadow: 0 1px 2px rgba(0,0,0,0.35);
     background: linear-gradient(90deg, #0891b2, #6d28d9);
   }
@@ -560,6 +560,13 @@
     background: transparent;
   }
   .review-link-block:hover { border-color: var(--cyan); }
+  .ver-mas-wrap { display: flex; justify-content: center; margin-top: 22px; }
+  .ver-mas-btn {
+    padding: 11px 28px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+    border: 1px solid var(--card-border); background: var(--card); color: var(--text);
+    cursor: pointer; transition: border-color .15s, color .15s;
+  }
+  .ver-mas-btn:hover { border-color: var(--cyan); color: var(--cyan); }
   .search-btn {
     display: inline-flex; align-items: center; justify-content: center;
     width: 38px; height: 38px;
