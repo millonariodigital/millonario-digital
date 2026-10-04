@@ -27,6 +27,13 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
 
   const [email, setEmail] = useState('');
   const [subState, setSubState] = useState('idle'); // idle | sending | done | error
+  const [expandedCats, setExpandedCats] = useState({});
+
+  const TARJETAS_INICIALES = 8;
+
+  function verMas(catId) {
+    setExpandedCats((prev) => ({ ...prev, [catId]: true }));
+  }
 
   // Animación de aparición al hacer scroll — IntersectionObserver, sin costo
   // en carga ni en scroll (se anima una sola vez por elemento).
@@ -198,7 +205,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         <div className="circuit-bg" />
         <span className="eyebrow mono">INGRESOS DIGITALES · POTENCIADOS POR IA</span>
         <h1>
-          Formas reales de generar ingresos digitales, <span className="grad">aceleradas por la IA</span>.
+          Formas reales de generar ingresos digitales, <span className="grad">aceleradas por la IA</span><span style={{ color: 'var(--magenta)' }}>.</span>
         </h1>
         <p>
           Reseñas y guías de trading, cripto, freelancing y e-commerce — te mostramos cómo la
@@ -272,6 +279,12 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
 
         if (q && visible.length === 0) return null;
 
+        // Mientras se busca, se muestran todos los resultados; si no, se
+        // limita a TARJETAS_INICIALES hasta que el usuario pida ver más.
+        const isExpanded = q ? true : !!expandedCats[cat.id];
+        const shown = isExpanded ? visible : visible.slice(0, TARJETAS_INICIALES);
+        const hayMas = !isExpanded && visible.length > TARJETAS_INICIALES;
+
         return (
           <section className="cat" id={cat.slug} key={cat.id}>
             <div className="cat-head">
@@ -304,10 +317,18 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             )}
 
             <div className="grid">
-              {visible.map((p) => (
+              {shown.map((p) => (
                 <ProgramCard programa={p} categoriaNombre={cat.nombre} key={p.id} />
               ))}
             </div>
+
+            {hayMas && (
+              <div className="ver-mas-wrap">
+                <button className="ver-mas-btn" onClick={() => verMas(cat.id)} type="button">
+                  Ver más ({visible.length - TARJETAS_INICIALES}) ↓
+                </button>
+              </div>
+            )}
           </section>
         );
       })}

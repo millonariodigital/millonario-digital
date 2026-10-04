@@ -38,6 +38,18 @@ function IconoCursoPropio() {
   );
 }
 
+// Versión corta del nombre de categoría, solo para el bloque de
+// estadísticas de la tarjeta (Calificación / Categoría / Nivel), para que
+// las 3 columnas se vean parejas. En el menú, los filtros y el subtítulo
+// de la tarjeta se sigue usando el nombre completo.
+const CATEGORIA_CORTA = {
+  'Trading e Inversión': 'Trading',
+  'IA y Automatización': 'IA',
+  Crypto: 'Crypto',
+  'Freelancing y Servicios Digitales': 'Freelancing',
+  'E-commerce y Negocios Digitales': 'E-commerce',
+};
+
 export default function ProgramCard({ programa, categoriaNombre }) {
   const color = COLOR_ACENTO[programa.slug] || COLOR_ACENTO_DEFAULT;
   const textColor = textoParaFondo(color);
@@ -111,7 +123,7 @@ export default function ProgramCard({ programa, categoriaNombre }) {
           {categoria && (
             <div className="card-stat">
               <IconoCategoria />
-              <strong>{categoria}</strong>
+              <strong>{CATEGORIA_CORTA[categoria] || categoria}</strong>
               <span>Categoría</span>
             </div>
           )}
