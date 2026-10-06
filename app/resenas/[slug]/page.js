@@ -159,7 +159,6 @@ export default async function ResenaPage({ params }) {
           style={{ marginTop: '6px', fontSize: '0.82rem', color: 'var(--text-dim)' }}
         >
           Analizado por el equipo de Millonario Digital
-          {fechaResena && <> · Actualizado el {fechaResena}</>}
         </p>
 
         <div
