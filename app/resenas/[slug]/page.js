@@ -84,13 +84,25 @@ export default async function ResenaPage({ params }) {
     articuloRelacionado = data;
   }
 
+  // Datos estructurados: nuestras reseñas son contenido editorial, por eso se
+  // marcan como "Article" (no como "Review" de un "Product", que obliga a
+  // incluir precio o puntuación que no tenemos y Google lo marca como error).
+  const SITE = 'https://millonario-digital.com';
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Review',
-    itemReviewed: { '@type': 'Product', name: programa?.nombre },
-    author: { '@type': 'Organization', name: 'Millonario Digital' },
-    reviewBody: resena.titulo,
-    ...(fechaRaw ? { datePublished: fechaRaw } : {}),
+    '@type': 'Article',
+    headline: resena.titulo,
+    mainEntityOfPage: `${SITE}/resenas/${resena.slug}`,
+    author: { '@type': 'Organization', name: 'Millonario Digital', url: SITE },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Millonario Digital',
+      logo: { '@type': 'ImageObject', url: `${SITE}/logo.png` },
+    },
+    ...(resena.meta_descripcion ? { description: resena.meta_descripcion } : {}),
+    ...(portada ? { image: `${SITE}${portada}` } : {}),
+    ...(programa?.nombre ? { about: { '@type': 'Thing', name: programa.nombre } } : {}),
+    ...(fechaRaw ? { datePublished: fechaRaw, dateModified: fechaRaw } : {}),
   };
 
   return (
