@@ -1,6 +1,5 @@
 import { supabase } from '../lib/supabaseClient';
 import { portadaUrl } from '../lib/portada';
-import { logoUrl } from '../lib/logos';
 import { imagenSitio } from '../lib/assets';
 import CatalogoInteractivo from '../components/CatalogoInteractivo';
 
@@ -20,11 +19,27 @@ export default async function Home() {
     .select('*')
     .eq('activo', true);
 
-  const programas = (programasRaw || []).map((p) => ({
-    ...p,
-    portada: portadaUrl(p.slug),
-    logo: logoUrl(p.slug),
-  }));
+  // Estrategia principal: las tarjetas con enlace de afiliado REAL van primero
+  // en cada categoría (y por tanto entre las que se ven al cargar la portada).
+  // Ojo: la columna enlace_afiliado también guarda la web normal de la marca
+  // en las tarjetas sin afiliado, por eso no sirve para decidir el orden.
+  // Se usa la columna afiliado_confirmado (true solo si el enlace lleva tu código).
+  // Dentro de cada grupo se respeta 'destacado' y luego el orden original.
+  const tieneEnlace = (p) => p.afiliado_confirmado === true;
+
+  const programas = (programasRaw || [])
+    .map((p, i) => ({
+      ...p,
+      portada: portadaUrl(p.slug),
+      _orden: i,
+    }))
+    .sort((a, b) => {
+      const porEnlace = Number(tieneEnlace(b)) - Number(tieneEnlace(a));
+      if (porEnlace !== 0) return porEnlace;
+      const porDestacado = Number(!!b.destacado) - Number(!!a.destacado);
+      if (porDestacado !== 0) return porDestacado;
+      return a._orden - b._orden;
+    });
 
   const { data: articulos } = await supabase
     .from('articulos')
