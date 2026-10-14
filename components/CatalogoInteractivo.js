@@ -24,7 +24,7 @@ const MOSTRAR_PODCAST = true;
 // Douglas decide la versión final del diseño/colores.
 const MOSTRAR_BANNER = false;
 
-export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null }) {
+export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null, estadisticas = {} }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeSub, setActiveSub] = useState({});
@@ -241,10 +241,10 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
       </svg>
       <div className="stats">
         {[
-          { num: '89+', label: 'Herramientas analizadas', dash: '232.2 263.9' },
-          { num: '5', label: 'Categorías de ingreso digital', dash: '263.9 263.9' },
-          { num: '41', label: 'Artículos de blog con guías y comparativas', dash: '210.0 263.9' },
-          { num: '100%', label: 'Reseñas con pros y contras reales', dash: '263.9 263.9' },
+          { num: estadisticas.herramientas ? String(estadisticas.herramientas) : '89+', label: 'Herramientas analizadas', dash: '232.2 263.9' },
+          { num: String((categorias || []).length || 5), label: 'Categorías de ingreso digital', dash: '263.9 263.9' },
+          { num: estadisticas.articulos ? String(estadisticas.articulos) : '41', label: 'Artículos de blog con guías y comparativas', dash: '210.0 263.9' },
+          { num: estadisticas.resenas ? String(estadisticas.resenas) : '89', label: 'Reseñas con pros y contras', dash: '263.9 263.9' },
         ].map((s) => (
           <div className="stat-item" key={s.label}>
             <div className="stat-ring">
@@ -318,6 +318,29 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
                   </button>
                 ))}
               </div>
+            )}
+
+            {(cat.slug === 'trading-inversion' || cat.slug === 'crypto') && (
+              <p
+                className="risk-notice"
+                role="note"
+                style={{
+                  margin: '0 0 18px',
+                  padding: '12px 16px',
+                  border: '1px solid var(--line)',
+                  borderLeft: '3px solid #f5a524',
+                  borderRadius: '10px',
+                  fontSize: '0.86rem',
+                  lineHeight: 1.55,
+                  color: 'var(--text-dim)',
+                }}
+              >
+                <strong style={{ color: 'var(--text)' }}>Aviso de riesgo:</strong> operar con CFD, forex,
+                apalancamiento, opciones binarias o criptomonedas implica un alto riesgo de pérdida y puede
+                no ser adecuado para todas las personas. Puedes perder parte o todo el dinero que inviertas.
+                Esto es contenido informativo, no asesoría financiera, y los resultados pasados no garantizan
+                resultados futuros.
+              </p>
             )}
 
             <div className="grid">

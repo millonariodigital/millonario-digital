@@ -55,6 +55,20 @@ export default async function Home() {
     portada: portadaUrl(a.slug),
   }));
 
+  // Cifras de la portada: se calculan de la base de datos (no se escriben a mano).
+  const { count: totalArticulos } = await supabase
+    .from('articulos')
+    .select('*', { count: 'exact', head: true })
+    .eq('publicado', true);
+  const { data: resenasRows } = await supabase.from('resenas').select('slug');
+  const slugsActivos = new Set((programasRaw || []).map((p) => p.slug));
+  const totalResenas = (resenasRows || []).filter((r) => slugsActivos.has(r.slug)).length;
+  const estadisticas = {
+    herramientas: (programasRaw || []).length,
+    articulos: totalArticulos || 0,
+    resenas: totalResenas,
+  };
+
   const bannerInferior = imagenSitio('banner-inferior');
 
   return (
@@ -63,6 +77,7 @@ export default async function Home() {
       programas={programas || []}
       articulos={articulosConPortada}
       bannerInferior={bannerInferior}
+      estadisticas={estadisticas}
     />
   );
 }

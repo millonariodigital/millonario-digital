@@ -10,17 +10,7 @@ export const metadata = {
     template: '%s | Millonario Digital',
   },
   description:
-    'Reseñas y guías de trading, cripto, freelancing y e-commerce — te mostramos cómo la inteligencia artificial te ayuda a generar ingresos digitales más rápido, con criterio propio, no con promesas.',
-  keywords: [
-    'ingresos digitales',
-    'ganar dinero online',
-    'ganar dinero con inteligencia artificial',
-    'trading',
-    'inteligencia artificial',
-    'criptomonedas',
-    'freelancing',
-    'e-commerce',
-  ],
+    'Reseñas y guías de trading, cripto, freelancing y e-commerce, con la IA como apoyo y criterio propio. Sin promesas de dinero fácil.',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
