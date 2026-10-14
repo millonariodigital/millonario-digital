@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
 import ProgramCard from './ProgramCard';
 import ThemeToggle from './ThemeToggle';
+import FormularioGuia from './FormularioGuia';
 
 // Links reales de las redes sociales de Millonario Digital. Mientras una
 // quede en null, su ícono no se muestra en el footer (para no publicar
@@ -29,8 +30,6 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
   const [activeSub, setActiveSub] = useState({});
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [email, setEmail] = useState('');
-  const [subState, setSubState] = useState('idle'); // idle | sending | done | error
   const [expandedCats, setExpandedCats] = useState({});
 
   const TARJETAS_INICIALES = 8;
@@ -70,15 +69,6 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
 
   function setSub(catId, tipo) {
     setActiveSub((prev) => ({ ...prev, [catId]: tipo }));
-  }
-
-  async function handleSubscribe(e) {
-    e.preventDefault();
-    if (!email) return;
-    setSubState('sending');
-    const { error } = await supabase.from('suscriptores').insert({ email });
-    setSubState(error ? 'error' : 'done');
-    if (!error) setEmail('');
   }
 
   const q = searchTerm.trim().toLowerCase();
@@ -211,13 +201,21 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         <div className="circuit-bg" />
         <span className="eyebrow mono">INGRESOS DIGITALES · POTENCIADOS POR IA</span>
         <h1>
-          Formas reales de generar ingresos digitales, <span className="grad">aceleradas por la IA</span><span style={{ color: 'var(--magenta)' }}>.</span>
+          Conoce caminos para generar ingresos digitales, <span className="grad">con la IA como apoyo</span><span style={{ color: 'var(--magenta)' }}>.</span>
         </h1>
         <p>
-          Reseñas y guías de trading, cripto, freelancing y e-commerce — te mostramos cómo la
-          inteligencia artificial te ayuda a avanzar más rápido en cada una, con criterio propio,
-          no con promesas.
+          Reseñas y guías de trading, cripto, freelancing y e-commerce — te ayudamos a descubrir
+          qué camino encaja contigo y a dar los primeros pasos con criterio, usando la inteligencia
+          artificial como apoyo. Sin promesas de dinero fácil.
         </p>
+        <div className="hero-cta">
+          <Link className="btn btn-glow" href="/guia-gratis">
+            Descargar la guía gratis
+          </Link>
+          <Link className="btn btn-ghost" href="/descubre-tu-camino">
+            Descubre tu camino
+          </Link>
+        </div>
       </div>
 
       {/* Chips de acceso rápido a cada categoría */}
@@ -265,7 +263,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
         <h2>¿No sabes por dónde empezar?</h2>
         <p>
-          Responde 7 preguntas rápidas y descubre qué forma de generar ingresos digitales encaja
+          Responde 7 preguntas rápidas y descubre qué camino de ingresos digitales podría encajar
           contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.
         </p>
         <span className="quiz-cta-btn">Descubre tu camino →</span>
@@ -366,7 +364,6 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
                       {new Date(a.fecha_publicacion).toLocaleDateString('es', {
                         day: 'numeric',
                         month: 'short',
-                        year: 'numeric',
                       })}
                     </span>
                   </div>
@@ -399,14 +396,15 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <span className="mono" style={{ fontSize: '0.78rem', color: 'var(--cyan)' }}>
             QUIÉNES SOMOS
           </span>
-          <h2>Millonario Digital no vende humo — vende criterio, potenciado por IA.</h2>
+          <h2>Millonario Digital no vende humo — ofrece criterio, potenciado por IA.</h2>
           <p>
-            Vivimos un momento en el que la inteligencia artificial hace posible que una persona
-            bien orientada logre en días lo que antes tomaba meses — en trading, freelancing,
-            contenido o comercio digital. La mayoría de sitios sobre &quot;hacer dinero
+            La inteligencia artificial está cambiando la forma de trabajar y emprender en línea, y
+            una buena orientación ayuda a avanzar con menos pasos en falso — en trading,
+            freelancing, contenido o comercio digital. Los resultados dependen de tu tiempo, tus
+            habilidades y tu constancia, y no podemos prometerlos. La mayoría de sitios sobre &quot;hacer dinero
             online&quot; recomiendan lo que sea que pague mejor comisión; nosotros hacemos lo
             contrario — investigamos a fondo y solo mostramos lo que realmente sirve, con pros y
-            contras reales, y cómo la IA puede ayudarte a sacarle más provecho, empezando por lo
+            contras reales, y cómo la IA puede ayudarte a aprovecharlo mejor, empezando por lo
             que conocemos de primera mano: mercados, IA y negocios digitales.
           </p>
           <span className="signature mono">— EL EQUIPO DE MILLONARIO DIGITAL</span>
@@ -414,20 +412,9 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
       </div>
 
       <div className="capture" id="capture">
-        <h2>Recibe las herramientas nuevas antes que nadie</h2>
-        <p>Cada semana analizamos una plataforma o programa nuevo. Súmate para recibirlo directo, sin spam.</p>
-        <form onSubmit={handleSubscribe}>
-          <input
-            type="email"
-            required
-            placeholder="tu@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button className="btn btn-glow" type="submit" disabled={subState === 'sending'}>
-            {subState === 'sending' ? 'Enviando…' : subState === 'done' ? '¡Listo! ✓' : 'Quiero recibirlo'}
-          </button>
-        </form>
+        <h2>Descarga gratis la guía: 7 formas de generar ingresos con IA sin invertir capital</h2>
+        <p>Herramientas, ejemplos prácticos y una ruta de 30 días para empezar. Sin promesas de dinero fácil.</p>
+        <FormularioGuia fuente="portada-final" />
       </div>
 
       <footer className="foot-cols">
@@ -479,7 +466,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <ul>
             <li><Link href="/blog">Últimos análisis</Link></li>
             <li><Link href="/descubre-tu-camino">Descubre tu camino</Link></li>
-            <li><a href="#capture">Newsletter</a></li>
+            <li><Link href="/guia-gratis">Guía gratis</Link></li>
           </ul>
         </div>
         <div>

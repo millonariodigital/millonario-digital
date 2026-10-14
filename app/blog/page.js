@@ -63,7 +63,6 @@ export default async function BlogPage() {
                   {new Date(a.fecha_publicacion).toLocaleDateString('es', {
                     day: 'numeric',
                     month: 'short',
-                    year: 'numeric',
                   })}
                 </span>
               </div>

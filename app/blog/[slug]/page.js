@@ -43,6 +43,22 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Los enlaces internos de afiliado (/ir/<slug>) se marcan automáticamente
+// como "sponsored nofollow" y se abren en pestaña nueva, tal como pide Google
+// para enlaces de afiliado. Así basta con escribir <a href="/ir/slug">…</a>
+// en el contenido del artículo.
+function prepararEnlacesAfiliado(html) {
+  if (!html) return '';
+  return html.replace(/<a\s+([^>]*?)>/gi, (m, attrs) => {
+    const hrefMatch = attrs.match(/href\s*=\s*("|')(\/ir\/[^"']*)\1/i);
+    if (!hrefMatch) return m;
+    const limpio = attrs
+      .replace(/\s*(target|rel)\s*=\s*("[^"]*"|'[^']*')/gi, '')
+      .trim();
+    return `<a ${limpio} target="_blank" rel="sponsored nofollow noopener">`;
+  });
+}
+
 export default async function ArticuloPage({ params }) {
   const articulo = await getArticulo(params.slug);
 
@@ -58,6 +74,8 @@ export default async function ArticuloPage({ params }) {
   }
 
   const portada = portadaUrl(articulo.slug);
+  const tieneAfiliados = /href\s*=\s*["']\/ir\//i.test(articulo.contenido || '');
+  const contenidoHtml = prepararEnlacesAfiliado(articulo.contenido);
 
   let resenasRelacionadas = [];
   if (articulo.categoria_id) {
@@ -131,15 +149,29 @@ export default async function ArticuloPage({ params }) {
           {new Date(articulo.fecha_publicacion).toLocaleDateString('es', {
             day: 'numeric',
             month: 'long',
-            year: 'numeric',
           })}
         </span>
+
 
         <div
           className="article-body"
           style={{ marginTop: '28px', lineHeight: 1.75, color: 'var(--text)' }}
-          dangerouslySetInnerHTML={{ __html: articulo.contenido }}
+          dangerouslySetInnerHTML={{ __html: contenidoHtml }}
         />
+
+        {tieneAfiliados && (
+          <p
+            className="affiliate-disclosure"
+            style={{ fontSize: '0.8rem', color: 'var(--text-dim)', marginTop: '28px' }}
+          >
+            💡 Este artículo contiene enlaces de afiliado: si te registras desde ellos, podemos
+            ganar una comisión sin costo extra para ti. No cambia nuestra opinión —{' '}
+            <Link href="/politicas-de-uso" style={{ color: 'var(--cyan)' }}>
+              más información aquí
+            </Link>
+            .
+          </p>
+        )}
 
         <CompartirBotones titulo={articulo.titulo} />
 

@@ -69,7 +69,7 @@ export default async function ResenaPage({ params }) {
   // fecha — nunca inventamos una.
   const fechaRaw = resena.actualizado_en || resena.updated_at || resena.created_at || null;
   const fechaResena = fechaRaw
-    ? new Date(fechaRaw).toLocaleDateString('es', { day: 'numeric', month: 'long', year: 'numeric' })
+    ? new Date(fechaRaw).toLocaleDateString('es', { day: 'numeric', month: 'long' })
     : null;
 
   let articuloRelacionado = null;
