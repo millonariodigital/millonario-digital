@@ -85,7 +85,14 @@ export default function ProgramCard({ programa, categoriaNombre }) {
             <LogoImg src={programa.logo} alt={programa.nombre} />
           ) : esCursoPropio ? (
             <IconoCursoPropio />
-          ) : null}
+          ) : (
+            <span
+              aria-hidden="true"
+              style={{ color: color, fontWeight: 800, fontSize: '1.5rem', lineHeight: 1 }}
+            >
+              {(programa.nombre || '?').trim().charAt(0).toUpperCase()}
+            </span>
+          )}
         </div>
         <div>
           <h3 style={{ margin: 0 }}>{programa.nombre}</h3>
