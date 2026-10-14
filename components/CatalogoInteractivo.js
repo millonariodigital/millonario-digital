@@ -374,6 +374,12 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </section>
       )}
 
+      <div className="capture" id="capture">
+        <h2>Descarga gratis la guía: 7 formas de generar ingresos con IA sin invertir capital</h2>
+        <p>Herramientas, ejemplos prácticos y una ruta de 30 días para empezar. Sin promesas de dinero fácil.</p>
+        <FormularioGuia fuente="portada-final" />
+      </div>
+
       {MOSTRAR_PODCAST && (
         <div className="podcast">
           <div>
@@ -409,12 +415,6 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           </p>
           <span className="signature mono">— EL EQUIPO DE MILLONARIO DIGITAL</span>
         </div>
-      </div>
-
-      <div className="capture" id="capture">
-        <h2>Descarga gratis la guía: 7 formas de generar ingresos con IA sin invertir capital</h2>
-        <p>Herramientas, ejemplos prácticos y una ruta de 30 días para empezar. Sin promesas de dinero fácil.</p>
-        <FormularioGuia fuente="portada-final" />
       </div>
 
       <footer className="foot-cols">
