@@ -53,6 +53,11 @@ const CATEGORIA_CORTA = {
 export default function ProgramCard({ programa, categoriaNombre }) {
   const color = COLOR_ACENTO[programa.slug] || COLOR_ACENTO_DEFAULT;
   const textColor = textoParaFondo(color);
+  // Si el color de marca es muy oscuro (OKX, Ledger...) no se ve sobre el fondo
+  // oscuro de la tarjeta: en ese caso la inicial va en blanco.
+  const _hex = (color || '#00E5FF').replace('#', '');
+  const _brillo = (parseInt(_hex.substring(0, 2), 16) * 299 + parseInt(_hex.substring(2, 4), 16) * 587 + parseInt(_hex.substring(4, 6), 16) * 114) / 1000;
+  const colorInicial = _brillo < 70 ? '#ffffff' : color;
   const calificacion = CALIFICACION[programa.slug];
   const dificultad = DIFICULTAD[programa.slug];
   const categoria = categoriaNombre || null;
@@ -80,7 +85,10 @@ export default function ProgramCard({ programa, categoriaNombre }) {
       )}
 
       <div className="card-id-row">
-        <div className="card-id-badge" style={{ '--acento': color }}>
+        <div
+          className="card-id-badge"
+          style={{ '--acento': _brillo < 70 ? '#ffffff' : color, ...(programa.logo ? { background: '#ffffff' } : {}) }}
+        >
           {programa.logo ? (
             <LogoImg src={programa.logo} alt={programa.nombre} />
           ) : esCursoPropio ? (
@@ -88,7 +96,7 @@ export default function ProgramCard({ programa, categoriaNombre }) {
           ) : (
             <span
               aria-hidden="true"
-              style={{ color: color, fontWeight: 800, fontSize: '1.5rem', lineHeight: 1 }}
+              style={{ color: colorInicial, fontWeight: 800, fontSize: '1.5rem', lineHeight: 1 }}
             >
               {(programa.nombre || '?').trim().charAt(0).toUpperCase()}
             </span>
