@@ -1,0 +1,107 @@
+/* Estilos del formulario de la guía gratuita.
+   Usan las variables de colores del sitio (--cyan, --line, etc.), así que
+   funcionan igual en modo oscuro y claro. El doble ".gg-form.gg-form" es
+   a propósito: evita que choque con los estilos de ".capture form" cuando
+   el formulario va dentro del bloque de la portada. */
+
+.gg-form.gg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: left;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.gg-form.gg-form input.gg-email {
+  flex: none;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.gg-form.gg-form input.gg-email:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
+}
+
+.gg-form.gg-form input.gg-trampa {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  padding: 0;
+  border: 0;
+}
+
+.gg-form .gg-boton {
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+}
+.gg-form .gg-boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.gg-form .gg-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+.gg-form.gg-form .gg-consent input[type='checkbox'] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 2px 0 0;
+  accent-color: var(--cyan);
+}
+.gg-form .gg-consent a,
+.gg-form .gg-nota a,
+.gg-form .gg-error a {
+  color: var(--cyan);
+}
+
+.gg-form .gg-error {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  border-left: 3px solid var(--magenta);
+  padding-left: 10px;
+}
+
+.gg-form.gg-exito {
+  align-items: center;
+  text-align: center;
+  padding: 22px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: color-mix(in srgb, var(--cyan) 8%, transparent);
+}
+.gg-form.gg-exito strong {
+  font-size: 1.05rem;
+}
+.gg-form.gg-exito .btn {
+  margin-top: 4px;
+}
+.gg-form.gg-exito .gg-nota {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
