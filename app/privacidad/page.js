@@ -66,7 +66,7 @@ export default function PrivacidadPage() {
           <h2>3. Con quién compartimos datos</h2>
           <p>
             Usamos proveedores externos para operar el Sitio: hosting (Vercel), base de datos
-            (Supabase) y, si está activa, analítica (Google Analytics). Estos proveedores procesan
+            (Supabase), envío de correos (Brevo) y, si está activa, analítica (Google Analytics). Estos proveedores procesan
             datos en nuestro nombre bajo sus propias políticas de seguridad. No compartimos tu
             información con terceros para fines de publicidad ajenos a este Sitio.
           </p>

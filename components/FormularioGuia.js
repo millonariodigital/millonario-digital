@@ -75,6 +75,17 @@ export default function FormularioGuia({
       return;
     }
 
+    // Aviso a Brevo (herramienta de correos). Si falla, no pasa nada: el
+    // correo ya quedó guardado en Supabase y la persona recibe su guía igual.
+    try {
+      fetch('/api/suscribir', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: correo, fuente, interes }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (e) {}
+
     terminar();
   }
 
