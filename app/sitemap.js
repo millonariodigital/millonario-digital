@@ -47,7 +47,7 @@ export default async function sitemap() {
     priority: 0.6,
   }));
 
-  const paginasEstaticas = ['/contacto', '/quienes-somos', '/politicas-de-uso', '/descubre-tu-camino'].map(
+  const paginasEstaticas = ['/guia-gratis', '/blog', '/contacto', '/quienes-somos', '/politicas-de-uso', '/descubre-tu-camino'].map(
     (ruta) => ({
       url: `${SITE_URL}${ruta}`,
       changeFrequency: 'monthly',
