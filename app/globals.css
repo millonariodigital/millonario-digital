@@ -368,7 +368,7 @@
     .blog-card:hover { transform: none; }
   }
   .blog-card .thumb {
-    height: 120px;
+    aspect-ratio: 2 / 1; /* muestra la portada 1600x800 completa, sin recortes */
     background: linear-gradient(135deg, rgba(0,229,255,0.18), rgba(168,85,247,0.22));
     display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim);
