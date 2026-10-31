@@ -23,6 +23,20 @@ function origenDesde(request) {
   }
 }
 
+// Robots, buscadores y vistas previas de enlaces (WhatsApp, Facebook...) también
+// "visitan" los enlaces /ir/. Esos clics no son personas: se redirigen igual,
+// pero no se guardan, para que las estadísticas reflejen visitantes reales.
+const PATRON_BOT = /bot|crawl|spider|slurp|preview|fetch|scan|monitor|headless|python|curl|wget|axios|node-fetch|go-http|java\/|httpclient|facebookexternalhit|whatsapp|telegram|discord|slack|vercel|lighthouse|pingdom|uptime/i;
+
+function esRobot(request) {
+  const ua = request.headers.get('user-agent') || '';
+  if (!ua || ua.length < 20) return true;
+  if (PATRON_BOT.test(ua)) return true;
+  const proposito = `${request.headers.get('purpose') || ''} ${request.headers.get('sec-purpose') || ''}`;
+  if (/prefetch|prerender/i.test(proposito) || request.headers.get('next-router-prefetch')) return true;
+  return false;
+}
+
 export async function GET(request, { params }) {
   const { slug } = params;
 
@@ -38,7 +52,7 @@ export async function GET(request, { params }) {
 
   // Registra el clic esperando como máximo 800 ms: si la base de datos
   // tarda o falla, el visitante igual sigue a su destino sin notarlo.
-  try {
+  if (!esRobot(request)) try {
     await Promise.race([
       supabase.from('clics').insert({ programa_id: programa.id, origen: origenDesde(request) }),
       new Promise((resolve) => setTimeout(resolve, 800)),
