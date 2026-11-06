@@ -377,7 +377,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
                 <div className="body">
                   <span className="cat-label">
                     {v.herramienta.nombre.toUpperCase()}
-                    {!v.youtubeId && ' · PRÓXIMAMENTE'}
+                    {!v.publicado && ' · PRÓXIMAMENTE'}
                   </span>
                   <h4>{v.titulo}</h4>
                 </div>

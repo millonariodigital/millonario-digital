@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabaseClient';
-import { TUTORIALES } from '../lib/tutoriales';
+import { TUTORIALES, videoPublicado } from '../lib/tutoriales';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital.com';
 
@@ -51,7 +51,7 @@ export default async function sitemap() {
   // Solo tutoriales que ya tienen su video en YouTube.
   const paginasTutoriales = [
     { url: `${SITE_URL}/tutoriales`, changeFrequency: 'weekly', priority: 0.8 },
-    ...TUTORIALES.filter((t) => t.youtubeId).map((t) => ({
+    ...TUTORIALES.filter(videoPublicado).map((t) => ({
       url: `${SITE_URL}/tutoriales/${t.slug}`,
       changeFrequency: 'monthly',
       priority: 0.7,

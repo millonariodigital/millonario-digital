@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Cabecera from './Cabecera';
-import { TUTORIALES, CANAL_SUSCRIBIR } from '../../lib/tutoriales';
+import { TUTORIALES, videoPublicado, CANAL_SUSCRIBIR } from '../../lib/tutoriales';
 import './tutoriales.css';
+
+export const revalidate = 300;
 
 export const metadata = {
   title: 'Tutoriales de herramientas de IA en español',
@@ -28,7 +30,7 @@ export default function TutorialesPage() {
                 <img src={`/tutoriales/${t.slug}.jpg`} alt={t.titulo} loading="lazy" decoding="async" />
               </div>
               <div className="body">
-                <span className="cat-label">{t.herramienta.nombre.toUpperCase()}{!t.youtubeId && ' · PRÓXIMAMENTE'}</span>
+                <span className="cat-label">{t.herramienta.nombre.toUpperCase()}{!videoPublicado(t) && ' · PRÓXIMAMENTE'}</span>
                 <h4>{t.titulo}</h4>
               </div>
             </Link>
