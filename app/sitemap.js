@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabaseClient';
+import { TUTORIALES } from '../lib/tutoriales';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital.com';
 
@@ -47,6 +48,16 @@ export default async function sitemap() {
     priority: 0.6,
   }));
 
+  // Solo tutoriales que ya tienen su video en YouTube.
+  const paginasTutoriales = [
+    { url: `${SITE_URL}/tutoriales`, changeFrequency: 'weekly', priority: 0.8 },
+    ...TUTORIALES.filter((t) => t.youtubeId).map((t) => ({
+      url: `${SITE_URL}/tutoriales/${t.slug}`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    })),
+  ];
+
   const paginasEstaticas = ['/guia-gratis', '/blog', '/contacto', '/quienes-somos', '/politicas-de-uso', '/descubre-tu-camino'].map(
     (ruta) => ({
       url: `${SITE_URL}${ruta}`,
@@ -64,6 +75,7 @@ export default async function sitemap() {
     ...paginasCategorias,
     ...paginasResenas,
     ...paginasArticulos,
+    ...paginasTutoriales,
     ...paginasEstaticas,
   ];
 }

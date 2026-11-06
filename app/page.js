@@ -3,6 +3,7 @@ import { portadaUrl } from '../lib/portada';
 import { logoUrl } from '../lib/logos';
 import { imagenSitio } from '../lib/assets';
 import CatalogoInteractivo from '../components/CatalogoInteractivo';
+import { ultimosTutoriales } from '../lib/tutoriales';
 
 // Vuelve a traer los datos de Supabase como máximo cada 60 segundos,
 // así los cambios en la base de datos se reflejan sin tener que
@@ -76,6 +77,7 @@ export default async function Home() {
       categorias={categorias || []}
       programas={programas || []}
       articulos={articulosConPortada}
+      videos={ultimosTutoriales(3)}
       bannerInferior={bannerInferior}
       estadisticas={estadisticas}
     />

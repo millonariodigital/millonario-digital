@@ -24,7 +24,7 @@ const MOSTRAR_PODCAST = true;
 // Douglas decide la versión final del diseño/colores.
 const MOSTRAR_BANNER = false;
 
-export default function CatalogoInteractivo({ categorias, programas, articulos = [], bannerInferior = null, estadisticas = {} }) {
+export default function CatalogoInteractivo({ categorias, programas, articulos = [], videos = [], bannerInferior = null, estadisticas = {} }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeSub, setActiveSub] = useState({});
@@ -359,6 +359,33 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           </section>
         );
       })}
+
+      {videos.length > 0 && (
+        <section className="blog" id="videos">
+          <div className="cat-head">
+            <h2>Últimos videos</h2>
+            <Link href="/tutoriales" className="mono" style={{ textDecoration: 'none' }}>
+              Ver todos los tutoriales →
+            </Link>
+          </div>
+          <div className="blog-grid">
+            {videos.map((v) => (
+              <Link className="blog-card" href={`/tutoriales/${v.slug}`} key={v.slug}>
+                <div className="thumb">
+                  <img src={`/tutoriales/${v.slug}.jpg`} alt={v.titulo} loading="lazy" decoding="async" />
+                </div>
+                <div className="body">
+                  <span className="cat-label">
+                    {v.herramienta.nombre.toUpperCase()}
+                    {!v.youtubeId && ' · PRÓXIMAMENTE'}
+                  </span>
+                  <h4>{v.titulo}</h4>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {articulos.length > 0 && (
         <section className="blog">
