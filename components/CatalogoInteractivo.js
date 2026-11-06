@@ -210,7 +210,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         </p>
         <div className="hero-cta">
           <Link className="btn btn-glow" href="/guia-gratis">
-            Descargar la guía gratis
+            Descargar el kit gratis
           </Link>
           <Link className="btn btn-ghost" href="/descubre-tu-camino">
             Descubre tu camino
@@ -398,8 +398,8 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
       )}
 
       <div className="capture" id="capture">
-        <h2>Descarga gratis la guía: 7 formas de generar ingresos con IA sin invertir capital</h2>
-        <p>Herramientas, ejemplos prácticos y una ruta de 30 días para empezar. Sin promesas de dinero fácil.</p>
+        <h2>Descarga gratis el kit para crear videos con IA sin mostrar tu cara</h2>
+        <p>El flujo en 7 pasos, plantilla de guion, 20 prompts de imágenes, checklists y un plan de 30 días.</p>
         <FormularioGuia fuente="portada-final" />
       </div>
 
@@ -489,7 +489,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <ul>
             <li><Link href="/blog">Últimos análisis</Link></li>
             <li><Link href="/descubre-tu-camino">Descubre tu camino</Link></li>
-            <li><Link href="/guia-gratis">Guía gratis</Link></li>
+            <li><Link href="/guia-gratis">Kit gratis</Link></li>
           </ul>
         </div>
         <div>

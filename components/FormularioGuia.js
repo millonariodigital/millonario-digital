@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../lib/supabaseClient';
-import { GUIA_URL, GUIA_GRACIAS } from '../lib/guia';
+import { GUIA_URL, GUIA_GRACIAS, extraDe } from '../lib/guia';
 import './formulario-guia.css';
 
 // Formulario para descargar la guía gratuita. Se puede poner en cualquier
@@ -17,12 +17,18 @@ import './formulario-guia.css';
 //   muestra el botón de descarga en el mismo lugar.
 // - interes: opcional (por ejemplo la categoría del artículo o el
 //   resultado del cuestionario) para segmentar más adelante.
+// - tema: opcional, el video del que viene la persona (por ejemplo
+//   "printful"). Si existe un extra para ese tema, se entrega junto al kit
+//   y el contacto queda etiquetado en Brevo como "tema-printful".
 export default function FormularioGuia({
   fuente = 'sitio',
   interes = null,
+  tema = null,
   redirigir = false,
-  textoBoton = 'Descargar la guía gratis',
+  textoBoton = 'Descargar el kit gratis',
 }) {
+  const extra = extraDe(tema);
+  const interesFinal = extra ? `tema-${extra.clave}` : interes;
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [acepto, setAcepto] = useState(false);
@@ -32,7 +38,7 @@ export default function FormularioGuia({
   function avisarAnalytics() {
     try {
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', { lead_source: fuente, content_name: 'guia-7-formas-ia' });
+        window.gtag('event', 'generate_lead', { lead_source: fuente, content_name: extra ? `kit-videos-ia+${extra.clave}` : 'kit-videos-ia' });
       }
     } catch (e) {}
   }
@@ -41,7 +47,7 @@ export default function FormularioGuia({
     avisarAnalytics();
     setEmail('');
     if (redirigir) {
-      router.push(GUIA_GRACIAS);
+      router.push(extra ? `${GUIA_GRACIAS}?tema=${extra.clave}` : GUIA_GRACIAS);
     } else {
       setEstado('listo');
     }
@@ -60,7 +66,7 @@ export default function FormularioGuia({
 
     setEstado('enviando');
 
-    const fila = { email: correo, fuente, interes, consentimiento: true };
+    const fila = { email: correo, fuente, interes: interesFinal, consentimiento: true };
     let { error } = await supabase.from('suscriptores').insert(fila);
 
     // Si todavía no se corrió el script SQL (faltan columnas), guardamos al
@@ -81,7 +87,7 @@ export default function FormularioGuia({
       fetch('/api/suscribir', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: correo, fuente, interes }),
+        body: JSON.stringify({ email: correo, fuente, interes: interesFinal }),
         keepalive: true,
       }).catch(() => {});
     } catch (e) {}
@@ -92,10 +98,15 @@ export default function FormularioGuia({
   if (estado === 'listo') {
     return (
       <div className="gg-form gg-exito">
-        <strong>¡Listo! Tu guía está lista para descargar.</strong>
+        <strong>¡Listo! Tu kit está listo para descargar.</strong>
         <a className="btn btn-glow" href={GUIA_URL} download>
-          Descargar el PDF
+          Descargar el kit (PDF)
         </a>
+        {extra && (
+          <a className="btn btn-ghost" href={extra.url} download>
+            Descargar el extra de {extra.nombre}
+          </a>
+        )}
         <span className="gg-nota">
           Guárdala en tu teléfono o computadora. Después puedes hacer el{' '}
           <Link href="/descubre-tu-camino">cuestionario &ldquo;Descubre tu camino&rdquo;</Link>.
@@ -136,7 +147,7 @@ export default function FormularioGuia({
       <label className="gg-consent">
         <input type="checkbox" checked={acepto} onChange={(e) => setAcepto(e.target.checked)} required />
         <span>
-          Acepto recibir la guía y correos de Millonario Digital. Puedo darme de baja cuando quiera.{' '}
+          Acepto recibir el kit y correos de Millonario Digital. Puedo darme de baja cuando quiera.{' '}
           <Link href="/privacidad">Política de privacidad</Link>.
         </span>
       </label>

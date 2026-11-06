@@ -74,6 +74,29 @@
   transform: rotate(-45deg);
 }
 
+.gg-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: -6px 0 18px;
+  padding: 12px 16px;
+  border: 1px solid var(--cyan);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--cyan) 8%, transparent);
+  color: var(--text);
+  font-size: 0.95rem;
+  max-width: 48ch;
+}
+.gg-extra-tag {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+}
+.gg-card + .gg-puntos {
+  margin-top: 24px;
+}
+
 .gg-card {
   padding: 22px;
   border-radius: 14px;
@@ -249,11 +272,18 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 36px;
   }
+  /* En el teléfono el formulario va primero; la portada queda debajo. */
   .gg-portada {
-    order: -1;
+    order: 1;
   }
   .gg-portada img {
-    max-width: 230px;
+    max-width: 200px;
+  }
+  .gg-gracias .gg-portada {
+    display: none;
+  }
+  .gg-gracias .btn {
+    white-space: normal;
   }
   .gg-lista,
   .gg-pasos {

@@ -1,37 +1,39 @@
 import Link from 'next/link';
 import ThemeToggle from '../../components/ThemeToggle';
 import FormularioGuia from '../../components/FormularioGuia';
-import { GUIA_TITULO } from '../../lib/guia';
+import { GUIA_TITULO, GUIA_PORTADA, extraDe } from '../../lib/guia';
 import './guia.css';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital.com';
 
 export const metadata = {
-  title: `Guía gratis: ${GUIA_TITULO}`,
+  title: `Kit gratis: ${GUIA_TITULO}`,
   description:
-    'Descarga gratis una guía en PDF con 7 formas de generar ingresos con inteligencia artificial sin invertir capital: herramientas, errores comunes, ejemplos prácticos y una ruta de 30 días para dar los primeros pasos.',
+    'Descarga gratis el kit para crear videos con inteligencia artificial sin mostrar tu cara: el flujo completo en 7 pasos, plantilla de guion, 20 prompts de imágenes, checklists para reels y videos largos y un plan de 30 días.',
   alternates: { canonical: '/guia-gratis' },
   openGraph: {
-    title: `Guía gratis: ${GUIA_TITULO}`,
+    title: `Kit gratis: ${GUIA_TITULO}`,
     description:
-      'Guía en PDF con herramientas, ejemplos prácticos y una ruta de 30 días. Sin promesas de dinero fácil.',
+      'El flujo, las plantillas y los prompts que uso para crear videos y reels con IA sin mostrar la cara.',
     url: `${SITE_URL}/guia-gratis`,
     type: 'website',
-    images: [{ url: '/guia-gratis-portada.jpg', width: 1020, height: 1320, alt: GUIA_TITULO }],
+    images: [{ url: GUIA_PORTADA, width: 1020, height: 1320, alt: GUIA_TITULO }],
   },
 };
 
-const FORMAS = [
-  ['01', 'Freelancing potenciado por IA', 'Más trabajo entregado en el mismo tiempo, sin perder tu voz.'],
-  ['02', 'Asistente virtual con IA', 'Atender a varios negocios con procesos claros y automatizados.'],
-  ['03', 'Chatbots para negocios', 'Responder y calificar clientes sin necesidad de programar.'],
-  ['04', 'Canales de contenido sin mostrar el rostro', 'Videos y podcasts con voces, guiones y edición asistidos por IA.'],
-  ['05', 'Diseños y arte generado con IA', 'Productos digitales e impresión por demanda sin inventario.'],
-  ['06', 'Cursos, tutorías y consultoría', 'Convertir lo que ya sabes en un servicio o producto que puede crecer.'],
-  ['07', 'Marketing de afiliados', 'Contenido que recomienda con criterio y puede generar comisiones.'],
+const CONTENIDO = [
+  ['01', 'El flujo completo en 7 pasos', 'De la idea al video publicado: qué hacer en cada paso, con qué herramienta y qué error evitar.'],
+  ['02', 'Plantilla de guion', 'La estructura que uso en cada video, con un ejemplo real y el prompt para pedirle el borrador a la IA.'],
+  ['03', '20 prompts de imágenes', 'Escenas con mascota, persona de espaldas, fondos e interfaces, en 16:9 y 9:16.'],
+  ['04', 'Checklist del reel que retiene', 'Lo que estamos aprendiendo con datos reales: primeros segundos, texto en pantalla y duración.'],
+  ['05', 'Checklist del video largo', 'Contenido, imagen, sonido y lo que hay que revisar en YouTube antes de publicar.'],
+  ['06', 'Plan de 30 días', 'De cero a 3 videos largos y 12 reels en un mes, con una rutina semanal realista.'],
 ];
 
-export default function GuiaGratisPage() {
+export default function GuiaGratisPage({ searchParams }) {
+  const extra = extraDe(searchParams?.tema);
+  const tema = extra ? extra.clave : null;
+
   return (
     <>
       <div className="bg-circuit" aria-hidden="true" />
@@ -51,42 +53,44 @@ export default function GuiaGratisPage() {
       <main className="gg-wrap">
         <section className="gg-hero">
           <div>
-            <span className="eyebrow mono">GUÍA GRATUITA · PDF</span>
+            <span className="eyebrow mono">KIT GRATUITO · PDF</span>
             <h1>
-              7 formas de generar ingresos con IA <span className="grad">sin invertir capital</span>
+              Crea videos con IA <span className="grad">sin mostrar tu cara</span>
             </h1>
             <p className="gg-lead">
-              Una guía práctica y honesta: qué funciona, qué herramientas usar y qué esperar realmente de
-              cada opción. Sin promesas de dinero fácil.
+              El flujo, las plantillas y los prompts que uso para crear los videos y reels de Millonario
+              Digital, explicados paso a paso.
             </p>
 
-            <ul className="gg-puntos">
-              <li>Las 7 opciones explicadas paso a paso, con herramientas y errores comunes.</li>
-              <li>Un ejemplo práctico por cada una y pros y contras reales.</li>
-              <li>Comparativa para elegir y una ruta de 30 días para empezar.</li>
-            </ul>
+            {extra && (
+              <div className="gg-extra">
+                <span className="gg-extra-tag">INCLUYE EL EXTRA DE {extra.nombre.toUpperCase()}</span>
+                <span>{extra.titulo}</span>
+              </div>
+            )}
 
             <div className="gg-card">
-              <FormularioGuia fuente="landing" redirigir />
+              <FormularioGuia fuente="landing" tema={tema} redirigir />
               <span className="gg-micro">12 páginas · Descarga inmediata · Sin costo</span>
             </div>
+
+            <ul className="gg-puntos">
+              <li>El flujo completo en 7 pasos, con sus herramientas.</li>
+              <li>Plantilla de guion y 20 prompts de imágenes listos para copiar.</li>
+              <li>Checklists para reels y videos largos, y un plan de 30 días.</li>
+            </ul>
           </div>
 
           <div className="gg-portada">
-            <img
-              src="/guia-gratis-portada.jpg"
-              alt={`Portada de la guía: ${GUIA_TITULO}`}
-              width="1020"
-              height="1320"
-            />
+            <img src={GUIA_PORTADA} alt={`Portada del kit: ${GUIA_TITULO}`} width="1020" height="1320" />
           </div>
         </section>
 
         <section className="gg-seccion">
-          <span className="eyebrow mono">DENTRO DE LA GUÍA</span>
-          <h2>Las 7 formas que vas a conocer</h2>
+          <span className="eyebrow mono">DENTRO DEL KIT</span>
+          <h2>Lo que vas a encontrar</h2>
           <div className="gg-lista">
-            {FORMAS.map(([num, titulo, desc]) => (
+            {CONTENIDO.map(([num, titulo, desc]) => (
               <div className="gg-item" key={num}>
                 <span className="gg-num">{num}</span>
                 <div>
@@ -99,16 +103,16 @@ export default function GuiaGratisPage() {
         </section>
 
         <section className="gg-honesto">
-          <strong>Por qué confiar en esta guía.</strong> En Millonario Digital no recomendamos lo que mejor
-          comisión paga: investigamos, mostramos pros y contras reales y te decimos cuándo algo no es para
-          ti. La IA acelera el camino, pero no lo reemplaza, y los resultados dependen de tu tiempo, tus
-          habilidades y el nicho que elijas. Este sitio contiene enlaces de afiliados.
+          <strong>Por qué confiar en este kit.</strong> Es el mismo método que uso cada semana para crear
+          los videos de Millonario Digital, con lo que estamos aprendiendo de nuestros propios números. No
+          es una promesa de resultados: el crecimiento depende del tema que elijas, de la calidad de cada
+          video y de tu constancia. Este sitio contiene enlaces de afiliados.
         </section>
 
         <section className="gg-final">
-          <h2>Descárgala gratis y conoce tus opciones</h2>
+          <h2>Descarga el kit y crea tu primer video</h2>
           <div className="gg-card" style={{ margin: '0 auto' }}>
-            <FormularioGuia fuente="landing-final" redirigir />
+            <FormularioGuia fuente="landing-final" tema={tema} redirigir />
           </div>
         </section>
       </main>
