@@ -64,7 +64,7 @@ export default function TutorialPage({ params }) {
         <h1 className="tut-h1">{t.titulo}</h1>
         <p className="tut-lead">{t.resumen}</p>
 
-        <VideoYouTube id={publicado ? t.youtubeId : ''} titulo={t.titulo} miniatura={`/tutoriales/${t.slug}.jpg`} />
+        <VideoYouTube id={t.youtubeId} estreno={t.estreno} publicado={publicado} titulo={t.titulo} miniatura={`/tutoriales/${t.slug}.jpg`} />
 
         <div className="tut-cols">
           <article>
