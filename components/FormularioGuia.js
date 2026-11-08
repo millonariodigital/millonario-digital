@@ -109,7 +109,7 @@ export default function FormularioGuia({
         )}
         <span className="gg-nota">
           Guárdala en tu teléfono o computadora. Después puedes hacer el{' '}
-          <Link href="/descubre-tu-camino">cuestionario &ldquo;Descubre tu camino&rdquo;</Link>.
+          <Link href="/test-negocio-digital">test &ldquo;¿Qué negocio digital es para ti?&rdquo;</Link>.
         </span>
       </div>
     );

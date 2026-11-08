@@ -94,7 +94,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
             </a>
           ))}
 
-          <Link href="/descubre-tu-camino">Descubre tu camino</Link>
+          <Link href="/test-negocio-digital" className="nav-test">Test: tu negocio digital</Link>
 
           <ThemeToggle />
           <div className="search-wrap">
@@ -156,8 +156,8 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
               {c.nombre}
             </a>
           ))}
-          <Link href="/descubre-tu-camino" onClick={() => setMenuOpen(false)}>
-            Descubre tu camino
+          <Link href="/test-negocio-digital" onClick={() => setMenuOpen(false)}>
+            Test: tu negocio digital
           </Link>
           <div className="mobile-menu-row">
             <ThemeToggle />
@@ -212,8 +212,8 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <Link className="btn btn-glow" href="/guia-gratis">
             Descargar el kit gratis
           </Link>
-          <Link className="btn btn-ghost" href="/descubre-tu-camino">
-            Descubre tu camino
+          <Link className="btn btn-ghost" href="/test-negocio-digital">
+            Hacer el test gratis
           </Link>
         </div>
       </div>
@@ -259,14 +259,14 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
         ))}
       </div>
 
-      <Link href="/descubre-tu-camino" className="quiz-cta">
-        <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS</span>
-        <h2>¿No sabes por dónde empezar?</h2>
+      <Link href="/test-negocio-digital" className="quiz-cta">
+        <span className="eyebrow mono">TEST GRATIS · 2 MINUTOS · 7 PREGUNTAS</span>
+        <h2>¿Qué negocio digital es para ti?</h2>
         <p>
-          Responde 7 preguntas rápidas y descubre qué camino de ingresos digitales podría encajar
-          contigo: trading, cripto, freelancing, e-commerce o creación de contenido con IA.
+          Contenido con IA, una tienda online, servicios freelance o aprender a invertir: descubre qué
+          camino encaja contigo y recibe los tutoriales y los primeros pasos para empezar.
         </p>
-        <span className="quiz-cta-btn">Descubre tu camino →</span>
+        <span className="btn btn-glow quiz-cta-btn">Hacer el test →</span>
       </Link>
 
       {categorias.map((cat) => {
@@ -515,7 +515,7 @@ export default function CatalogoInteractivo({ categorias, programas, articulos =
           <h5 className="mono">RECURSOS</h5>
           <ul>
             <li><Link href="/blog">Últimos análisis</Link></li>
-            <li><Link href="/descubre-tu-camino">Descubre tu camino</Link></li>
+            <li><Link href="/test-negocio-digital" className="nav-test">Test: tu negocio digital</Link></li>
             <li><Link href="/guia-gratis">Kit gratis</Link></li>
           </ul>
         </div>

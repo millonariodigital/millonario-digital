@@ -58,7 +58,7 @@ export default async function sitemap() {
     })),
   ];
 
-  const paginasEstaticas = ['/guia-gratis', '/blog', '/contacto', '/quienes-somos', '/politicas-de-uso', '/descubre-tu-camino'].map(
+  const paginasEstaticas = ['/guia-gratis', '/blog', '/contacto', '/quienes-somos', '/politicas-de-uso', '/test-negocio-digital', '/test-negocio-digital/contenido', '/test-negocio-digital/tienda', '/test-negocio-digital/servicios', '/test-negocio-digital/inversion'].map(
     (ruta) => ({
       url: `${SITE_URL}${ruta}`,
       changeFrequency: 'monthly',

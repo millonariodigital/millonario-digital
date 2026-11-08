@@ -20,6 +20,8 @@ const nextConfig = {
       { source: '/web-ig', destination: web('instagram'), permanent: false },
       { source: '/web-fb', destination: web('facebook'), permanent: false },
       { source: '/web-yt', destination: web('youtube'), permanent: false },
+      // El cuestionario anterior ahora es el test (los correos y enlaces viejos siguen funcionando).
+      { source: '/descubre-tu-camino', destination: '/test-negocio-digital', permanent: true },
     ];
   },
 };
