@@ -139,7 +139,7 @@ export default async function ResenaPage({ params }) {
 
       <article
         className="content-panel"
-        style={{ maxWidth: '760px', margin: '4vh auto 8vh', padding: '5vh 6vw' }}
+        style={{ maxWidth: '980px', margin: '4vh auto 8vh', padding: '5vh clamp(20px, 4vw, 60px)' }}
       >
         {portada && (
           <div className="portada-banner">
@@ -147,7 +147,7 @@ export default async function ResenaPage({ params }) {
               src={portada}
               alt={programa?.nombre || resena.titulo}
               fill
-              sizes="(max-width: 800px) 100vw, 760px"
+              sizes="(max-width: 1000px) 100vw, 980px"
               style={{ objectFit: 'cover' }}
               priority
             />
