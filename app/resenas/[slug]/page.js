@@ -7,6 +7,9 @@ import { logoUrl } from '../../../lib/logos';
 import LogoImg from '../../../components/LogoImg';
 import { portadaUrl } from '../../../lib/portada';
 import CompartirBotones from '../../../components/CompartirBotones';
+import { RESENAS_NUEVAS } from '../../../lib/resenasNuevas';
+import { TUTORIALES, videoPublicado } from '../../../lib/tutoriales';
+import './resena-nueva.css';
 
 export const revalidate = 60;
 
@@ -29,8 +32,10 @@ export async function generateMetadata({ params }) {
   const resena = await getResena(params.slug);
   if (!resena) return { title: 'Reseña no encontrada' };
 
-  const title = resena.titulo;
+  const nueva = RESENAS_NUEVAS[resena.slug];
+  const title = nueva?.titulo || resena.titulo;
   const description =
+    nueva?.meta ||
     resena.meta_descripcion ||
     resena.programas?.descripcion_corta ||
     `Reseña de ${resena.programas?.nombre || ''}`;
@@ -58,6 +63,9 @@ export default async function ResenaPage({ params }) {
   }
 
   const programa = resena.programas;
+  const nueva = RESENAS_NUEVAS[resena.slug];
+  const titulo = nueva?.titulo || resena.titulo;
+  const tutorial = TUTORIALES.find((t) => t.herramienta.slug === resena.slug) || null;
   const categoria = programa?.categorias;
   const portada = portadaUrl(programa?.slug);
   const logo = logoUrl(programa?.slug);
@@ -91,7 +99,7 @@ export default async function ResenaPage({ params }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: resena.titulo,
+    headline: titulo,
     mainEntityOfPage: `${SITE}/resenas/${resena.slug}`,
     author: { '@type': 'Organization', name: 'Millonario Digital', url: SITE },
     publisher: {
@@ -99,7 +107,7 @@ export default async function ResenaPage({ params }) {
       name: 'Millonario Digital',
       logo: { '@type': 'ImageObject', url: `${SITE}/logo.png` },
     },
-    ...(resena.meta_descripcion ? { description: resena.meta_descripcion } : {}),
+    ...((nueva?.meta || resena.meta_descripcion) ? { description: nueva?.meta || resena.meta_descripcion } : {}),
     ...(portada ? { image: `${SITE}${portada}` } : {}),
     ...(programa?.nombre ? { about: { '@type': 'Thing', name: programa.nombre } } : {}),
     ...(fechaRaw ? { datePublished: fechaRaw, dateModified: fechaRaw } : {}),
@@ -162,7 +170,7 @@ export default async function ResenaPage({ params }) {
             </div>
           )}
           <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.3rem)', lineHeight: 1.25 }}>
-            {resena.titulo}
+            {titulo}
           </h1>
         </div>
 
@@ -173,13 +181,52 @@ export default async function ResenaPage({ params }) {
           Analizado por el equipo de Millonario Digital
         </p>
 
-        <div
-          className="article-body"
-          style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}
-          dangerouslySetInnerHTML={{ __html: resena.contenido }}
-        />
+        {nueva ? (
+          <div className="article-body rn" style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}>
+            <h2>Qué es y para qué sirve</h2>
+            <p>{nueva.queEs}</p>
+            <ul className="rn-sirve">
+              {nueva.paraQueSirve.map((x) => <li key={x}>{x}</li>)}
+            </ul>
 
-        <CompartirBotones titulo={resena.titulo} />
+            <h2>Cómo te ayuda</h2>
+            <p>{nueva.comoAyuda}</p>
+
+            <h2>Cómo empezar en 3 pasos</h2>
+            <ol className="rn-pasos">
+              {nueva.pasos.map(([t, d]) => (
+                <li key={t}><strong>{t}.</strong> {d}</li>
+              ))}
+            </ol>
+
+            {tutorial && (
+              <Link href={`/tutoriales/${tutorial.slug}`} className="rn-tutorial">
+                <img src={`/tutoriales/${tutorial.slug}.jpg`} alt="" loading="lazy" />
+                <span>
+                  <span className="mono rn-tutorial-eti">{videoPublicado(tutorial) ? 'TUTORIAL EN VIDEO' : 'TUTORIAL · MUY PRONTO'}</span>
+                  <strong>{tutorial.titulo}</strong>
+                  <span className="rn-tutorial-ver">Ver el paso a paso →</span>
+                </span>
+              </Link>
+            )}
+
+            <h2>Qué revisar antes de elegir un plan</h2>
+            <ul className="rn-revisar">
+              {nueva.antesDePagar.map((x) => <li key={x}>{x}</li>)}
+            </ul>
+
+            <h2>¿Para quién es?</h2>
+            <p>{nueva.paraQuien}</p>
+          </div>
+        ) : (
+          <div
+            className="article-body"
+            style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}
+            dangerouslySetInnerHTML={{ __html: resena.contenido }}
+          />
+        )}
+
+        <CompartirBotones titulo={titulo} />
 
         {programa && (
           <div className="review-cta">
