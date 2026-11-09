@@ -1,8 +1,5 @@
 .rn-video { margin: 34px 0 10px; }
-.rn-video h2, .rn-blog h2 { font-size: 1.3rem; margin: 0 0 14px; }
+.rn-video h2 { font-size: 1.3rem; margin: 0 0 14px; }
 .rn-enlace { display: inline-block; margin-top: 12px; color: var(--cyan); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
-.rn-blog { margin-top: 34px; padding: 20px 22px; border: 1px solid var(--card-border); border-radius: 16px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--cyan) 6%, transparent), color-mix(in srgb, var(--violet) 8%, transparent)); }
-.rn-blog ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.rn-blog a { color: var(--text); text-decoration: none; line-height: 1.45; }
-.rn-blog a:hover { color: var(--cyan); }
+.rn-blog { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto 8vh; }
+.rn-blog .blog-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }

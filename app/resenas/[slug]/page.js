@@ -81,7 +81,7 @@ export default async function ResenaPage({ params }) {
   const tutorial = TUTORIALES.find((t) => t.herramienta.slug === programa?.slug) || null;
   let relacionados = [];
   {
-    const { data } = await supabase.from('articulos').select('titulo, slug, categoria_id').eq('publicado', true);
+    const { data } = await supabase.from('articulos').select('id, titulo, slug, categoria_id, fecha_publicacion, categorias(nombre)').eq('publicado', true);
     const todos = data || [];
     const claves = [programa?.slug, programa?.nombre]
       .filter(Boolean)
@@ -89,7 +89,7 @@ export default async function ResenaPage({ params }) {
       .filter((x) => x.length > 2);
     const menciona = todos.filter((a) => claves.some((k) => (a.titulo + ' ' + a.slug).toLowerCase().includes(k)));
     const misma = todos.filter((a) => a.categoria_id === programa?.categoria_id && !menciona.includes(a));
-    relacionados = [...menciona, ...misma].slice(0, 3);
+    relacionados = [...menciona, ...misma].slice(0, 3).map((a) => ({ ...a, portada: portadaUrl(a.slug) }));
   }
 
   // Datos estructurados: nuestras reseñas son contenido editorial, por eso se
@@ -235,19 +235,40 @@ export default async function ResenaPage({ params }) {
         )}
 
 
-        {relacionados.length > 0 && (
-          <section className="rn-blog">
-            <h2>Sigue leyendo en el blog</h2>
-            <ul>
-              {relacionados.map((a) => (
-                <li key={a.slug}>
-                  <Link href={`/blog/${a.slug}`}>{a.titulo} →</Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </article>
+
+      {relacionados.length > 0 && (
+        <section className="blog rn-blog">
+          <div className="cat-head">
+            <h2>Sigue leyendo en el blog</h2>
+            <Link href="/blog" className="mono" style={{ textDecoration: 'none' }}>
+              Ver todo el blog →
+            </Link>
+          </div>
+          <div className="blog-grid">
+            {relacionados.map((a) => (
+              <Link className="blog-card" href={`/blog/${a.slug}`} key={a.id}>
+                <div className="thumb">
+                  {a.portada ? (
+                    <img src={a.portada} alt={a.titulo} loading="lazy" decoding="async" />
+                  ) : (
+                    (a.categorias?.nombre || 'ARTÍCULO').toUpperCase()
+                  )}
+                </div>
+                <div className="body">
+                  <span className="cat-label">{(a.categorias?.nombre || '').toUpperCase()}</span>
+                  <h4>{a.titulo}</h4>
+                  {a.fecha_publicacion && (
+                    <span className="date">
+                      {new Date(a.fecha_publicacion).toLocaleDateString('es', { day: 'numeric', month: 'short' })}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="foot-bottom" style={{ borderTop: '1px solid var(--line)' }}>
         <span>© {new Date().getFullYear()} Millonario Digital</span>
