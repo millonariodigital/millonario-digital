@@ -747,7 +747,7 @@
       conic-gradient(from var(--tn-ang), transparent 0deg, var(--cyan) 50deg, var(--violet) 110deg, transparent 170deg,
         transparent 190deg, var(--violet) 230deg, var(--cyan) 290deg, transparent 350deg) border-box;
     box-shadow: 0 0 46px color-mix(in srgb, var(--violet) 22%, transparent);
-    animation: tn-giro 6s linear infinite;
+    animation: tn-giro 10s linear infinite;
   }
   .quiz-cta::before,
   .quiz-cta::after {
@@ -761,12 +761,12 @@
   .quiz-cta::before {
     background: radial-gradient(circle, color-mix(in srgb, var(--cyan) 30%, transparent), transparent 65%);
     left: -6%; top: -70%;
-    animation: tn-luz-a 9s ease-in-out infinite alternate;
+    animation: tn-luz-a 15s ease-in-out infinite alternate;
   }
   .quiz-cta::after {
     background: radial-gradient(circle, color-mix(in srgb, var(--violet) 32%, transparent), transparent 65%);
     right: -6%; bottom: -80%;
-    animation: tn-luz-b 11s ease-in-out infinite alternate;
+    animation: tn-luz-b 18s ease-in-out infinite alternate;
   }
   .quiz-cta-btn { position: relative; overflow: hidden; }
   .quiz-cta-btn::after {
@@ -776,7 +776,7 @@
     width: 40%;
     background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
     transform: skewX(-20deg);
-    animation: tn-destello 3.6s ease-in-out infinite;
+    animation: tn-destello 6s ease-in-out infinite;
   }
   .quiz-cta:hover .quiz-cta-btn { transform: translateY(-2px); }
   @keyframes tn-giro { to { --tn-ang: 360deg; } }
