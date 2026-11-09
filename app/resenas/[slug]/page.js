@@ -7,8 +7,9 @@ import { logoUrl } from '../../../lib/logos';
 import LogoImg from '../../../components/LogoImg';
 import { portadaUrl } from '../../../lib/portada';
 import CompartirBotones from '../../../components/CompartirBotones';
-import { RESENAS_NUEVAS } from '../../../lib/resenasNuevas';
+import VideoYouTube from '../../../components/VideoYouTube';
 import { TUTORIALES, videoPublicado } from '../../../lib/tutoriales';
+import '../../tutoriales/tutoriales.css';
 import './resena-nueva.css';
 
 export const revalidate = 60;
@@ -32,10 +33,8 @@ export async function generateMetadata({ params }) {
   const resena = await getResena(params.slug);
   if (!resena) return { title: 'Reseña no encontrada' };
 
-  const nueva = RESENAS_NUEVAS[resena.slug];
-  const title = nueva?.titulo || resena.titulo;
+  const title = resena.titulo;
   const description =
-    nueva?.meta ||
     resena.meta_descripcion ||
     resena.programas?.descripcion_corta ||
     `Reseña de ${resena.programas?.nombre || ''}`;
@@ -63,9 +62,6 @@ export default async function ResenaPage({ params }) {
   }
 
   const programa = resena.programas;
-  const nueva = RESENAS_NUEVAS[resena.slug];
-  const titulo = nueva?.titulo || resena.titulo;
-  const tutorial = TUTORIALES.find((t) => t.herramienta.slug === resena.slug) || null;
   const categoria = programa?.categorias;
   const portada = portadaUrl(programa?.slug);
   const logo = logoUrl(programa?.slug);
@@ -80,16 +76,20 @@ export default async function ResenaPage({ params }) {
     ? new Date(fechaRaw).toLocaleDateString('es', { day: 'numeric', month: 'long' })
     : null;
 
-  let articuloRelacionado = null;
-  if (programa?.categoria_id) {
-    const { data } = await supabase
-      .from('articulos')
-      .select('titulo, slug')
-      .eq('categoria_id', programa.categoria_id)
-      .eq('publicado', true)
-      .limit(1)
-      .maybeSingle();
-    articuloRelacionado = data;
+  // Tutorial en video de esta herramienta (si existe) y artículos del blog relacionados:
+  // primero los que mencionan la herramienta, después los de su misma categoría.
+  const tutorial = TUTORIALES.find((t) => t.herramienta.slug === programa?.slug) || null;
+  let relacionados = [];
+  {
+    const { data } = await supabase.from('articulos').select('titulo, slug, categoria_id').eq('publicado', true);
+    const todos = data || [];
+    const claves = [programa?.slug, programa?.nombre]
+      .filter(Boolean)
+      .map((x) => x.toLowerCase().split(/[\s.]/)[0])
+      .filter((x) => x.length > 2);
+    const menciona = todos.filter((a) => claves.some((k) => (a.titulo + ' ' + a.slug).toLowerCase().includes(k)));
+    const misma = todos.filter((a) => a.categoria_id === programa?.categoria_id && !menciona.includes(a));
+    relacionados = [...menciona, ...misma].slice(0, 3);
   }
 
   // Datos estructurados: nuestras reseñas son contenido editorial, por eso se
@@ -99,7 +99,7 @@ export default async function ResenaPage({ params }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: titulo,
+    headline: resena.titulo,
     mainEntityOfPage: `${SITE}/resenas/${resena.slug}`,
     author: { '@type': 'Organization', name: 'Millonario Digital', url: SITE },
     publisher: {
@@ -107,7 +107,7 @@ export default async function ResenaPage({ params }) {
       name: 'Millonario Digital',
       logo: { '@type': 'ImageObject', url: `${SITE}/logo.png` },
     },
-    ...((nueva?.meta || resena.meta_descripcion) ? { description: nueva?.meta || resena.meta_descripcion } : {}),
+    ...(resena.meta_descripcion ? { description: resena.meta_descripcion } : {}),
     ...(portada ? { image: `${SITE}${portada}` } : {}),
     ...(programa?.nombre ? { about: { '@type': 'Thing', name: programa.nombre } } : {}),
     ...(fechaRaw ? { datePublished: fechaRaw, dateModified: fechaRaw } : {}),
@@ -170,7 +170,7 @@ export default async function ResenaPage({ params }) {
             </div>
           )}
           <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.3rem)', lineHeight: 1.25 }}>
-            {titulo}
+            {resena.titulo}
           </h1>
         </div>
 
@@ -181,52 +181,29 @@ export default async function ResenaPage({ params }) {
           Analizado por el equipo de Millonario Digital
         </p>
 
-        {nueva ? (
-          <div className="article-body rn" style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}>
-            <h2>Qué es y para qué sirve</h2>
-            <p>{nueva.queEs}</p>
-            <ul className="rn-sirve">
-              {nueva.paraQueSirve.map((x) => <li key={x}>{x}</li>)}
-            </ul>
+        <div
+          className="article-body"
+          style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}
+          dangerouslySetInnerHTML={{ __html: resena.contenido }}
+        />
 
-            <h2>Cómo te ayuda</h2>
-            <p>{nueva.comoAyuda}</p>
-
-            <h2>Cómo empezar en 3 pasos</h2>
-            <ol className="rn-pasos">
-              {nueva.pasos.map(([t, d]) => (
-                <li key={t}><strong>{t}.</strong> {d}</li>
-              ))}
-            </ol>
-
-            {tutorial && (
-              <Link href={`/tutoriales/${tutorial.slug}`} className="rn-tutorial">
-                <img src={`/tutoriales/${tutorial.slug}.jpg`} alt="" loading="lazy" />
-                <span>
-                  <span className="mono rn-tutorial-eti">{videoPublicado(tutorial) ? 'TUTORIAL EN VIDEO' : 'TUTORIAL · MUY PRONTO'}</span>
-                  <strong>{tutorial.titulo}</strong>
-                  <span className="rn-tutorial-ver">Ver el paso a paso →</span>
-                </span>
-              </Link>
-            )}
-
-            <h2>Qué revisar antes de elegir un plan</h2>
-            <ul className="rn-revisar">
-              {nueva.antesDePagar.map((x) => <li key={x}>{x}</li>)}
-            </ul>
-
-            <h2>¿Para quién es?</h2>
-            <p>{nueva.paraQuien}</p>
-          </div>
-        ) : (
-          <div
-            className="article-body"
-            style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}
-            dangerouslySetInnerHTML={{ __html: resena.contenido }}
-          />
+        {tutorial && (
+          <section className="rn-video">
+            <h2>Míralo en video: {programa?.nombre} paso a paso</h2>
+            <VideoYouTube
+              id={tutorial.youtubeId}
+              estreno={tutorial.estreno}
+              publicado={videoPublicado(tutorial)}
+              titulo={tutorial.titulo}
+              miniatura={`/tutoriales/${tutorial.slug}.jpg`}
+            />
+            <Link href={`/tutoriales/${tutorial.slug}`} className="rn-enlace">
+              Ver los pasos en resumen y los capítulos del video →
+            </Link>
+          </section>
         )}
 
-        <CompartirBotones titulo={titulo} />
+        <CompartirBotones titulo={resena.titulo} />
 
         {programa && (
           <div className="review-cta">
@@ -257,13 +234,18 @@ export default async function ResenaPage({ params }) {
           </div>
         )}
 
-        {articuloRelacionado && (
-          <p style={{ marginTop: '18px', color: 'var(--text-dim)', fontSize: '0.9rem' }}>
-            Te puede interesar:{' '}
-            <Link href={`/blog/${articuloRelacionado.slug}`} style={{ color: 'var(--cyan)' }}>
-              {articuloRelacionado.titulo}
-            </Link>
-          </p>
+
+        {relacionados.length > 0 && (
+          <section className="rn-blog">
+            <h2>Sigue leyendo en el blog</h2>
+            <ul>
+              {relacionados.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/blog/${a.slug}`}>{a.titulo} →</Link>
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
       </article>
 
