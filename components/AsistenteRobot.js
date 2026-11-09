@@ -27,6 +27,12 @@ function evento(accion, detalle) {
   } catch (e) {}
 }
 
+// Primero las herramientas que tienen tutorial en video: son las que mejor explicamos.
+const CON_TUTORIAL = new Set(TUTORIALES.map((t) => t.herramienta.slug).concat(['synthesia']));
+function conTutorial(p) {
+  return CON_TUTORIAL.has(p.slug) ? 1 : 0;
+}
+
 function normalizar(t) {
   return (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
@@ -85,7 +91,7 @@ export default function AsistenteRobot() {
   const delCamino = (c) =>
     (programas || [])
       .filter((p) => c.extra.includes(categorias[p.categoria_id]))
-      .sort((a, b) => Number(b.destacado) - Number(a.destacado))
+      .sort((a, b) => conTutorial(b) - conTutorial(a) || Number(b.destacado) - Number(a.destacado))
       .slice(0, 4);
 
   const resultados = (() => {
