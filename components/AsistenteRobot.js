@@ -141,7 +141,6 @@ export default function AsistenteRobot() {
                   <button type="button" onClick={() => ir('caminos')}>🔎 Busco una herramienta</button>
                   <button type="button" onClick={() => ir('tutoriales')}>🎬 Quiero ver un tutorial</button>
                   <button type="button" onClick={() => ir('kit')}>📘 Quiero el kit sin costo</button>
-                  <button type="button" onClick={() => ir('afiliados')}>🤝 ¿Cómo gana dinero este sitio?</button>
                   <button type="button" onClick={() => ir('contacto')}>✉️ Quiero escribirles</button>
                 </div>
               </>
@@ -213,20 +212,6 @@ export default function AsistenteRobot() {
                   Escribe tu correo y te lo enviamos.
                 </p>
                 <FormularioGuia fuente="asistente" redirigir />
-              </>
-            )}
-
-            {vista === 'afiliados' && (
-              <>
-                <p className="ar-msg">
-                  Algunas herramientas tienen programa de afiliados: si te registras con nuestro enlace, podemos recibir una
-                  comisión <b>sin que pagues nada extra</b>. Así se mantiene el sitio.
-                </p>
-                <p className="ar-msg">
-                  Eso no cambia lo que opinamos: en cada análisis contamos lo que la herramienta hace bien y lo que conviene
-                  revisar antes de pagar. Y no prometemos ingresos: la tecnología abre la puerta; tú decides hasta dónde llegar.
-                </p>
-                <Link className="ar-enlace" href="/politicas-de-uso" onClick={() => evento('ver-politicas')}>Leer nuestras políticas →</Link>
               </>
             )}
 
