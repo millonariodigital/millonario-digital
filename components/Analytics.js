@@ -44,6 +44,22 @@ export default function Analytics() {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          // Modo de consentimiento: en Europa (RGPD) la analítica empieza sin cookies
+          // hasta que la persona acepta; en el resto del mundo funciona normal.
+          // Nunca usamos cookies de publicidad.
+          gtag('consent', 'default', {
+            analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],
+            wait_for_update: 500
+          });
+          gtag('consent', 'default', {
+            analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'
+          });
+          try {
+            var eleccion = localStorage.getItem('md-cookies');
+            if (eleccion === 'si') gtag('consent', 'update', { analytics_storage: 'granted' });
+            if (eleccion === 'no') gtag('consent', 'update', { analytics_storage: 'denied' });
+          } catch (e) {}
           gtag('js', new Date());
           gtag('config', '${gaId}');
         `}

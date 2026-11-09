@@ -852,3 +852,21 @@
   .quiz-result h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 14px 0 14px; }
   .quiz-result p { color: var(--text-dim); line-height: 1.6; }
   .quiz-retry { margin-top: 10px; }
+
+/* Aviso de cookies (solo Europa) y botones de la página de cookies */
+.aviso-cookies {
+  position: fixed; z-index: 50; left: 16px; right: 16px; bottom: 16px; margin: 0 auto; max-width: 720px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: space-between;
+  padding: 14px 18px; border-radius: 14px; border: 1px solid var(--card-border);
+  background: var(--card); color: var(--text); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); font-size: 0.9rem;
+}
+.aviso-cookies p { margin: 0; flex: 1 1 320px; line-height: 1.45; }
+.aviso-cookies a { color: var(--cyan); }
+.aviso-cookies-botones, .cambiar-cookies { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.aviso-cookies-btn {
+  font: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer; padding: 9px 18px; min-width: 110px;
+  border-radius: 10px; border: 1px solid var(--cyan); background: transparent; color: var(--text);
+}
+.aviso-cookies-btn:hover { background: color-mix(in srgb, var(--cyan) 15%, transparent); }
+.cambiar-cookies { margin: 14px 0 6px; }
+.cambiar-cookies-estado { color: var(--text-dim); font-size: 0.85rem; }

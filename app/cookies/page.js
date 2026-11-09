@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CambiarCookies from '../../components/CambiarCookies';
 import ThemeToggle from '../../components/ThemeToggle';
 
 export const metadata = {
@@ -35,7 +36,7 @@ export default function CookiesPage() {
           Política de Cookies
         </h1>
         <span className="date" style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>
-          Última actualización: 2 de octubre de 2026
+          Última actualización: 8 de noviembre de 2026
         </span>
 
         <div className="article-body" style={{ marginTop: '20px', lineHeight: 1.75, color: 'var(--text)' }}>
@@ -51,14 +52,19 @@ export default function CookiesPage() {
             nadie — vive solo en tu dispositivo.
           </p>
 
-          <h2>2. Analítica (si está activa)</h2>
+          <h2>2. Analítica</h2>
           <p>
-            Cuando está activada, usamos Google Analytics para entender de forma agregada cuántas
-            personas visitan el Sitio, qué páginas leen y desde qué país o dispositivo. Estas
-            cookies no nos dicen quién eres — solo patrones generales de uso que nos ayudan a
-            mejorar el contenido. Puedes bloquear estas cookies desde la configuración de tu
-            navegador sin que el Sitio deje de funcionar.
+            Usamos Google Analytics para entender de forma agregada cuántas personas visitan el
+            Sitio, qué páginas leen y desde qué país o dispositivo. Estas cookies no nos dicen
+            quién eres: solo patrones generales de uso que nos ayudan a mejorar el contenido. No
+            usamos cookies de publicidad.
           </p>
+          <p>
+            Si visitas el Sitio desde Europa, la analítica no guarda cookies hasta que las aceptas
+            en el aviso que aparece al entrar. Desde cualquier país puedes aceptarlas o
+            rechazarlas aquí, cuando quieras:
+          </p>
+          <CambiarCookies />
 
           <h2>3. Enlaces de afiliados</h2>
           <p>
