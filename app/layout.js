@@ -1,6 +1,7 @@
 import './globals.css';
 import Analytics from '../components/Analytics';
 import AvisoCookies from '../components/AvisoCookies';
+import AsistenteRobot from '../components/AsistenteRobot';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital.com';
 
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
         {children}
         <Analytics />
         <AvisoCookies />
+        <AsistenteRobot />
       </body>
     </html>
   );
