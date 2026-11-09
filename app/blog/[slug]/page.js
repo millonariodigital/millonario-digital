@@ -4,6 +4,7 @@ import { supabase } from '../../../lib/supabaseClient';
 import ThemeToggle from '../../../components/ThemeToggle';
 import { portadaUrl } from '../../../lib/portada';
 import CompartirBotones from '../../../components/CompartirBotones';
+import CajaKit from '../../../components/CajaKit';
 
 export const revalidate = 60;
 
@@ -172,6 +173,12 @@ export default async function ArticuloPage({ params }) {
             .
           </p>
         )}
+
+        <CajaKit
+          fuente={`blog-${articulo.slug}`.slice(0, 60)}
+          categoriaSlug={articulo.categorias?.slug}
+          categoriaNombre={articulo.categorias?.nombre}
+        />
 
         <CompartirBotones titulo={articulo.titulo} />
 

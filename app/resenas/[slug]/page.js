@@ -8,6 +8,7 @@ import LogoImg from '../../../components/LogoImg';
 import { portadaUrl } from '../../../lib/portada';
 import CompartirBotones from '../../../components/CompartirBotones';
 import VideoYouTube from '../../../components/VideoYouTube';
+import CajaKit from '../../../components/CajaKit';
 import { TUTORIALES, videoPublicado } from '../../../lib/tutoriales';
 import '../../tutoriales/tutoriales.css';
 import './resena-nueva.css';
@@ -202,6 +203,14 @@ export default async function ResenaPage({ params }) {
             </Link>
           </section>
         )}
+
+        <CajaKit
+          fuente={`resena-${resena.slug}`.slice(0, 60)}
+          categoriaSlug={categoria?.slug}
+          categoriaNombre={categoria?.nombre}
+          herramienta={programa?.nombre}
+          tema={programa?.slug}
+        />
 
         <CompartirBotones titulo={resena.titulo} />
 
