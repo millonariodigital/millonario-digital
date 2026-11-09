@@ -21,13 +21,13 @@ export async function generateMetadata({ params }) {
   const categoria = await getCategoria(params.slug);
   if (!categoria) return { title: 'Categoría no encontrada' };
 
-  const title = `${categoria.nombre} — Herramientas y programas analizados`;
+  const title = `${categoria.nombre}: herramientas analizadas`;
   const description =
     categoria.descripcion ||
     `Las mejores herramientas y programas de ${categoria.nombre}, probadas y comparadas con criterio propio.`;
 
   return {
-    title,
+    title: title.length > 44 ? { absolute: title } : title,
     description,
     alternates: { canonical: `/categoria/${categoria.slug}` },
     openGraph: {
@@ -35,7 +35,9 @@ export async function generateMetadata({ params }) {
       description,
       url: `/categoria/${categoria.slug}`,
       type: 'website',
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Millonario Digital' }],
     },
+    twitter: { card: 'summary_large_image', title, description, images: ['/og-image.png'] },
   };
 }
 

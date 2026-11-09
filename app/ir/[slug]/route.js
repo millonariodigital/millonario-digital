@@ -34,6 +34,10 @@ function esRobot(request) {
   if (PATRON_BOT.test(ua)) return true;
   const proposito = `${request.headers.get('purpose') || ''} ${request.headers.get('sec-purpose') || ''}`;
   if (/prefetch|prerender/i.test(proposito) || request.headers.get('next-router-prefetch')) return true;
+  // Los navegadores actuales envían "Sec-Fetch-User: ?1" solo cuando una persona hace clic.
+  // Los robots que se hacen pasar por navegador casi nunca lo envían (llegaban en ráfagas
+  // de 40 herramientas por hora). Sin esa señal, el clic se redirige igual pero no se cuenta.
+  if (request.headers.get('sec-fetch-user') !== '?1') return true;
   return false;
 }
 

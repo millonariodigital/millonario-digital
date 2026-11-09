@@ -40,11 +40,16 @@ export async function generateMetadata({ params }) {
     resena.programas?.descripcion_corta ||
     `Reseña de ${resena.programas?.nombre || ''}`;
 
+  // Imagen para compartir: la portada de la reseña o de la herramienta; si no hay, la de la marca.
+  const imagen = portadaUrl(resena.slug) || resena.programas?.imagen_url || '/og-image.png';
+  const inactivo = resena.programas && resena.programas.activo === false;
   return {
-    title,
+    title: title.length > 44 ? { absolute: title } : title,
     description,
     alternates: { canonical: `/resenas/${resena.slug}` },
-    openGraph: { title, description, url: `/resenas/${resena.slug}`, type: 'article' },
+    openGraph: { title, description, url: `/resenas/${resena.slug}`, type: 'article', images: [{ url: imagen, alt: title }] },
+    twitter: { card: 'summary_large_image', title, description, images: [imagen] },
+    ...(inactivo ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -214,7 +219,22 @@ export default async function ResenaPage({ params }) {
 
         <CompartirBotones titulo={resena.titulo} />
 
-        {programa && (
+        {programa && programa.activo === false && (
+          <div className="review-cta">
+            <p style={{ color: 'var(--text-dim)', margin: 0 }}>
+              <strong style={{ color: 'var(--text)' }}>Próximamente.</strong> Esta opción todavía no está disponible.
+              Mientras tanto, revisa otras herramientas analizadas
+              {categoria?.slug ? ' en la misma categoría.' : ' en el sitio.'}
+            </p>
+            {categoria?.slug && (
+              <Link href={`/categoria/${categoria.slug}`} className="btn btn-ghost">
+                Ver más de {categoria.nombre}
+              </Link>
+            )}
+          </div>
+        )}
+
+        {programa && programa.activo !== false && (
           <div className="review-cta">
             <p
               className="affiliate-disclosure"

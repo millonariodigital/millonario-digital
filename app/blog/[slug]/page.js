@@ -30,8 +30,9 @@ export async function generateMetadata({ params }) {
   const title = articulo.titulo;
   const description = articulo.meta_descripcion || articulo.resumen || articulo.titulo;
 
+  const imagen = portadaUrl(articulo.slug) || '/og-image.png';
   return {
-    title,
+    title: title.length > 44 ? { absolute: title } : title,
     description,
     alternates: { canonical: `/blog/${articulo.slug}` },
     openGraph: {
@@ -40,7 +41,9 @@ export async function generateMetadata({ params }) {
       url: `/blog/${articulo.slug}`,
       type: 'article',
       publishedTime: articulo.fecha_publicacion,
+      images: [{ url: imagen, alt: title }],
     },
+    twitter: { card: 'summary_large_image', title, description, images: [imagen] },
   };
 }
 
