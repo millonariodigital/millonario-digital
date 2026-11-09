@@ -23,7 +23,7 @@ export function generateMetadata({ params }) {
   if (!r) return { title: 'Resultado no encontrado' };
   const titulo = `Mi resultado: ${r.nombre}`;
   return {
-    title: `${r.nombre} · Test ¿qué negocio digital es para ti?`,
+    title: { absolute: `Resultado del test: ${r.corto}` },
     description: r.frase,
     alternates: { canonical: `${TEST_URL}/${params.resultado}` },
     openGraph: {

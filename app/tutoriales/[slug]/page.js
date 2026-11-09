@@ -20,7 +20,7 @@ export function generateMetadata({ params }) {
   const t = tutorialPorSlug(params.slug);
   if (!t) return { title: 'Tutorial no encontrado' };
   return {
-    title: t.titulo,
+    title: t.titulo.length > 44 ? { absolute: t.titulo } : t.titulo,
     description: t.resumen,
     alternates: { canonical: `/tutoriales/${t.slug}` },
     // Hasta que el video esté en YouTube, Google no indexa la página.

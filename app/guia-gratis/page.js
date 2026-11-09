@@ -7,7 +7,7 @@ import './guia.css';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://millonario-digital.com';
 
 export const metadata = {
-  title: `Kit gratis: ${GUIA_TITULO}`,
+  title: { absolute: 'Kit gratis: crea videos con IA sin mostrar tu cara' },
   description:
     'Descarga gratis el kit para crear videos con inteligencia artificial sin mostrar tu cara: el flujo completo en 7 pasos, plantilla de guion, 20 prompts de imágenes, checklists para reels y videos largos y un plan de 30 días.',
   alternates: { canonical: '/guia-gratis' },
