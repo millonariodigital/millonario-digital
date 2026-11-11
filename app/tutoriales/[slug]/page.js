@@ -42,7 +42,7 @@ export default function TutorialPage({ params }) {
   const publicado = videoPublicado(t);
   const origen = `utm_source=web&utm_medium=tutorial&utm_campaign=${t.slug}`;
 
-  const jsonLd = publicado
+  const jsonLd = publicado && (t.publicadoEl || t.estreno)
     ? {
         '@context': 'https://schema.org',
         '@type': 'VideoObject',
@@ -51,6 +51,7 @@ export default function TutorialPage({ params }) {
         thumbnailUrl: `${SITE_URL}/tutoriales/${t.slug}.jpg`,
         embedUrl: `https://www.youtube.com/embed/${t.youtubeId}`,
         contentUrl: `https://www.youtube.com/watch?v=${t.youtubeId}`,
+        uploadDate: t.publicadoEl || t.estreno,
         inLanguage: 'es',
       }
     : null;
